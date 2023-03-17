@@ -1,7 +1,11 @@
 import cv2
 import numpy as np
+import pandas as pd
 import os
 import json
+
+# import from local py
+from readLog import *
 
 # Import Tkinter
 from tkinter import *
@@ -27,6 +31,10 @@ TODO
 
 def sample():
     print("cbal")
+
+def sample2():
+    p = logPathEntry.get("1.0", "end-1c")
+    readLog(p)
 
 def getImg(btn):
     path = askopenfilename(
@@ -66,7 +74,6 @@ def getLog():
 
     else:
         print("Image Not Selected")
-
 
 if __name__ == "__main__":
 
@@ -160,7 +167,7 @@ if __name__ == "__main__":
     contain7  = Frame(win)
     contain7.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
 
-    btn1 = Button(contain7, text="재생시작", width=15, command=sample).pack(side="left", padx=(50, 10), pady=5)
+    btn1 = Button(contain7, text="재생시작", width=15, command=sample2).pack(side="left", padx=(50, 10), pady=5)
     btn2 = Button(contain7, text="일시정지", width=15, command=sample).pack(side="left", padx=10, pady=5)
     btn3 = Button(contain7, text="이전", width=15, command=sample).pack(side="left", padx=10, pady=5)
     btn4 = Button(contain7, text="이후", width=15, command=sample).pack(side="left", padx=10, pady=5)
