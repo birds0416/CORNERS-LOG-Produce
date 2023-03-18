@@ -22,19 +22,14 @@ win.geometry("900x300")
 
 '''
 TODO
-* 로그파일 불러와서 읽기
+* ---로그파일 불러와서 읽기
 * 재생구간 콤보박스 정보 불러와서 로그에서 그 구간의 데이터만 읽기
 * 하단 버튼 기능 전부 구현
 * 이미지 경로 tkinter 윈도우에 4개 연속으로 띄워서 박스 그리기
 '''
 
-
 def sample():
     print("cbal")
-
-def sample2():
-    p = logPathEntry.get("1.0", "end-1c")
-    readLog(p)
 
 def getImg(btn):
     path = askopenfilename(
@@ -167,7 +162,7 @@ if __name__ == "__main__":
     contain7  = Frame(win)
     contain7.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
 
-    btn1 = Button(contain7, text="재생시작", width=15, command=sample2).pack(side="left", padx=(50, 10), pady=5)
+    btn1 = Button(contain7, text="재생시작", width=15, command=sample).pack(side="left", padx=(50, 10), pady=5)
     btn2 = Button(contain7, text="일시정지", width=15, command=sample).pack(side="left", padx=10, pady=5)
     btn3 = Button(contain7, text="이전", width=15, command=sample).pack(side="left", padx=10, pady=5)
     btn4 = Button(contain7, text="이후", width=15, command=sample).pack(side="left", padx=10, pady=5)
