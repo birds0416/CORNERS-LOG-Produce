@@ -62,11 +62,9 @@ def getLog():
             ("all files (*.*)","*.*")
         )
     )
-
     if path != '':
         print("user chose", path)
         logPathEntry.insert("1.0", path)
-
     else:
         print("Image Not Selected")
 
