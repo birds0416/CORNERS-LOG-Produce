@@ -27,15 +27,17 @@ TODO
 * ---로그파일 불러와서 읽기
 * 재생구간 콤보박스 정보 불러와서 로그에서 그 구간의 데이터만 읽기
 * 하단 버튼 기능 전부 구현
-* 이미지 경로 tkinter 윈도우에 4개 연속으로 띄워서 박스 그리기
+* ---이미지 경로 tkinter 윈도우에 4개 연속으로 띄워서 박스 그리기
 '''
-
-def sample():
-    print("cbal")
 
 # returns is value is None or not
 def isEmpty(value):
     return value == None
+
+def onclose(win):
+    global opened
+    opened = False
+    win.destroy()
 
 # 이미지 불러오기
 def getImg(btn):
@@ -94,10 +96,23 @@ def getLog():
     else:
         print("Image Not Selected")
 
-def showImg():
-    imgWin = Toplevel()
-    imgWin.title("박스 표시")
-    # imgWin.geometry("1200x800")
+opened = False
+def playImg(btn):
+    global player11, player12, player13, player14
+    global opened
+
+    if not opened:
+        imgWin = Toplevel()
+        imgWin.title("박스 표시")
+        opened = True
+        # imgWin.geometry("1200x800")
+        imgWin.protocol('WM_DELETE_WINDOW', lambda: onclose(imgWin))
+
+    tF = playFrom.get() + ":00"
+    tT = playTo.get() + ":00"
+
+    timeF = datetime.strptime(tF, "%H:%M:%S").time()
+    timeT = datetime.strptime(tT, "%H:%M:%S").time()
 
     img11path = imgPath11Entry.get("1.0", "end-1c")
     img12path = imgPath12Entry.get("1.0", "end-1c")
@@ -105,17 +120,43 @@ def showImg():
     img14path = imgPath14Entry.get("1.0", "end-1c")
     logFile = logPathEntry.get("1.0", "end-1c")
 
-    player11 = ImagePlayer(imgWin, img11path, 11)
-    player12 = ImagePlayer(imgWin, img12path, 12)
-    player13 = ImagePlayer(imgWin, img13path, 13)
-    player14 = ImagePlayer(imgWin, img14path, 14)
+    player11 = ImagePlayer(imgWin, img11path, 11, 0, 0)
+    player12 = ImagePlayer(imgWin, img12path, 12, 0, 0)
+    player13 = ImagePlayer(imgWin, img13path, 13, 0, 0)
+    player14 = ImagePlayer(imgWin, img14path, 14, 0, 0)
 
-    player11.showBox(logFile, 11)
-    player12.showBox(logFile, 12)
-    player13.showBox(logFile, 13)
-    player14.showBox(logFile, 14)
+    player11.showBox(logFile, 11, timeF, timeT, btn)
+    player12.showBox(logFile, 12, timeF, timeT, btn)
+    player13.showBox(logFile, 13, timeF, timeT, btn)
+    player14.showBox(logFile, 14, timeF, timeT, btn)
+
+    if btn == "btn play":
+        player11.showBox(logFile, 11, timeF, timeT, btn, player11.idx)
+        player12.showBox(logFile, 12, timeF, timeT, btn, player12.idx)
+        player13.showBox(logFile, 13, timeF, timeT, btn, player13.idx)
+        player14.showBox(logFile, 14, timeF, timeT, btn, player14.idx)
+    elif btn == "btn pause":
+        pass
+    elif btn == "btn back":
+        pass
+    elif btn == "btn next":
+        pass
+    elif btn == "btn stop":
+        pass
+    elif btn == "btn finish":
+        opened = False
+        imgWin.destroy()
     
     imgWin.mainloop()
+
+def getExcept():
+    global opened
+    if opened:
+        if showExcept.get() == 1:
+            player11.drawExcept(11)
+            player12.drawExcept(12)
+            player13.drawExcept(13)
+            player14.drawExcept(14)
 
 if __name__ == "__main__":
 
@@ -173,7 +214,7 @@ if __name__ == "__main__":
     contain5 = Frame(win)
     contain5.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
     showExcept = IntVar()
-    exceptChkBox = Checkbutton(contain5, text="예외구역 표시", variable=showExcept).pack(side="left", padx=150, pady=5)
+    exceptChkBox = Checkbutton(contain5, text="예외구역 표시", variable=showExcept, command=getExcept).pack(side="left", padx=150, pady=5)
     
     ''' 재생구간 '''
     contain6 = Frame(win)
@@ -209,11 +250,11 @@ if __name__ == "__main__":
     contain7  = Frame(win)
     contain7.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
 
-    btn1 = Button(contain7, text="재생시작", width=15, command=showImg).pack(side="left", padx=(50, 10), pady=5)
-    btn2 = Button(contain7, text="일시정지", width=15, command=sample).pack(side="left", padx=10, pady=5)
-    btn3 = Button(contain7, text="이전", width=15, command=sample).pack(side="left", padx=10, pady=5)
-    btn4 = Button(contain7, text="이후", width=15, command=sample).pack(side="left", padx=10, pady=5)
-    btn5 = Button(contain7, text="중지", width=15, command=sample).pack(side="left", padx=10, pady=5)
-    btn6 = Button(contain7, text="종료", width=15, command=sample).pack(side="left", padx=10, pady=5)
+    btn1 = Button(contain7, text="재생시작", width=15, command=lambda btn="btn play" : playImg(btn)).pack(side="left", padx=(50, 10), pady=5)
+    btn2 = Button(contain7, text="일시정지", width=15, command=lambda btn="btn pause" : playImg(btn)).pack(side="left", padx=10, pady=5)
+    btn3 = Button(contain7, text="이전", width=15, command=lambda btn="btn back" : playImg(btn)).pack(side="left", padx=10, pady=5)
+    btn4 = Button(contain7, text="이후", width=15, command=lambda btn="btn next" : playImg(btn)).pack(side="left", padx=10, pady=5)
+    btn5 = Button(contain7, text="중지", width=15, command=lambda btn="btn stop" : playImg(btn)).pack(side="left", padx=10, pady=5)
+    btn6 = Button(contain7, text="종료", width=15, command=lambda btn="btn finish" : playImg(btn)).pack(side="left", padx=10, pady=5)
 
     win.mainloop()
