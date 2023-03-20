@@ -4,7 +4,7 @@ jsonPath = "C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/대상WL
 with open(jsonPath, 'r') as rf:
     region = json.load(rf)
 
-def getRegion(deviceID, isAll, f=region):
+def getRegion(deviceID, f=region):
     dID = str(deviceID)
     coord = ""
     for item in f:
