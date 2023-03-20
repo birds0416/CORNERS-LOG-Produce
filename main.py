@@ -6,6 +6,8 @@ import json
 
 # import from local py
 from readLog import *
+from readExcept import *
+from showBox import *
 
 # Import Tkinter
 from tkinter import *
@@ -31,6 +33,11 @@ TODO
 def sample():
     print("cbal")
 
+# returns is value is None or not
+def isEmpty(value):
+    return value == None
+
+# 이미지 불러오기
 def getImg(btn):
     path = askopenfilename(
         title="파일 선택",
@@ -39,6 +46,19 @@ def getImg(btn):
             ("all files (*.*)","*.*")
         )
     )
+
+    if isEmpty(imgPath11Entry) != True and btn == "btn11 clicked":
+        imgPath11Entry.delete("1.0", END)
+        imgPath11Entry.insert("1.0", "")
+    if isEmpty(imgPath12Entry) != True and btn == "btn12 clicked":
+        imgPath12Entry.delete("1.0", END)
+        imgPath12Entry.insert("1.0", "")
+    if isEmpty(imgPath13Entry) != True and btn == "btn13 clicked":
+        imgPath13Entry.delete("1.0", END)
+        imgPath13Entry.insert("1.0", "")
+    if isEmpty(imgPath14Entry) != True and btn == "btn14 clicked":
+        imgPath14Entry.delete("1.0", END)
+        imgPath14Entry.insert("1.0", "")
 
     if path != '':
         print("user chose", path)
@@ -54,6 +74,7 @@ def getImg(btn):
     else:
         print("Image Not Selected")
 
+# 로그 파일 불러오기
 def getLog():
     path = askopenfilename(
         title="파일 선택",
@@ -62,11 +83,39 @@ def getLog():
             ("all files (*.*)","*.*")
         )
     )
+
+    if isEmpty(logPathEntry) != True:
+        logPathEntry.delete("1.0", END)
+        logPathEntry.insert("1.0", "")
+
     if path != '':
         print("user chose", path)
         logPathEntry.insert("1.0", path)
     else:
         print("Image Not Selected")
+
+def showImg():
+    imgWin = Toplevel()
+    imgWin.title("박스 표시")
+    # imgWin.geometry("1200x800")
+
+    img11path = imgPath11Entry.get("1.0", "end-1c")
+    img12path = imgPath12Entry.get("1.0", "end-1c")
+    img13path = imgPath13Entry.get("1.0", "end-1c")
+    img14path = imgPath14Entry.get("1.0", "end-1c")
+    logFile = logPathEntry.get("1.0", "end-1c")
+
+    player11 = ImagePlayer(imgWin, img11path, 11)
+    player12 = ImagePlayer(imgWin, img12path, 12)
+    player13 = ImagePlayer(imgWin, img13path, 13)
+    player14 = ImagePlayer(imgWin, img14path, 14)
+
+    player11.showBox(logFile, 11)
+    player12.showBox(logFile, 12)
+    player13.showBox(logFile, 13)
+    player14.showBox(logFile, 14)
+    
+    imgWin.mainloop()
 
 if __name__ == "__main__":
 
@@ -160,7 +209,7 @@ if __name__ == "__main__":
     contain7  = Frame(win)
     contain7.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
 
-    btn1 = Button(contain7, text="재생시작", width=15, command=sample).pack(side="left", padx=(50, 10), pady=5)
+    btn1 = Button(contain7, text="재생시작", width=15, command=showImg).pack(side="left", padx=(50, 10), pady=5)
     btn2 = Button(contain7, text="일시정지", width=15, command=sample).pack(side="left", padx=10, pady=5)
     btn3 = Button(contain7, text="이전", width=15, command=sample).pack(side="left", padx=10, pady=5)
     btn4 = Button(contain7, text="이후", width=15, command=sample).pack(side="left", padx=10, pady=5)

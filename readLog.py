@@ -1,5 +1,4 @@
 import pandas as pd
-import json
 from datetime import datetime
 
 '''
@@ -35,7 +34,6 @@ def readLog(logPath):
                 temp.append(line)
             # 이벤트 발생 메시지 제외
 
-    
     return analysis
 
 
@@ -53,6 +51,14 @@ def getTime(analyze):
     analyzeTime = datetime.strptime(hms, "%H:%M:%S").time()
 
     return ymd, analyzeTime
+
+# 1회 분석에서 예외구역인지 아닌지 판단
+def isValid(analyze):
+    allInfo = analyze[33:].split(", ")
+    if "VALID" in allInfo[0]:
+        return True
+    elif "EX" in allInfo[0]:
+        return False
 
 # 1회 분석에서 장비 번호 가져오기
 def getDeviceID(analyze):
@@ -73,23 +79,21 @@ def getBox(analyze):
     x, y, w, h = [int(e) for e in boxInfo]
     return x, y, w, h
 
-
-
-
-
 '''
     readLog.py TEST
     Analysis 리스트에 잘 들어가는 거 확인 O
     다른 function들 작동 확인 O
 '''
-path = "C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/대상WL 로그재현 Tool/log/DetectManager20230317.log"
-analysis = readLog(path)
+# import json
+# path = "C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/대상WL 로그재현 Tool/log/DetectManager20230317.log"
+# analysis = readLog(path)
 
 # for item in analysis:
 #     for i in range(1, len(item)):
 #         iDate, iTime = getTime(item[i])
 #         print("Analyze Date: ", iDate)
 #         print("Analyze Time: ", iTime)
+#         print("Is Valid: ", isValid(item[i]))
 #         print("Device ID: ", getDeviceID(item[i]))
 #         print("Detect Object: ", getObject(item[i]))
 #         print("X, Y, W, H: ", getBox(item[i]))
