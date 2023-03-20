@@ -26,7 +26,7 @@ class ImagePlayer:
 
         self.label.config(image=self.img_tk)
 
-    def showBox(self, logPath, dID, tF, tT, btn, curr):
+    def drawBox(self, logPath, dID, tF, tT, btn, curr):
 
         x, y, w, h = 0, 0, 0, 0
         obj = None
@@ -38,7 +38,7 @@ class ImagePlayer:
 
         # data는 item[i] -> 1회 분석의 각각의 아이템
         # 재귀를 이용해서 사용
-        def recurBox(data):
+        def recur(data):
             cvimg = self.img.copy()
 
             _, iTime = getTime(data)
@@ -61,12 +61,12 @@ class ImagePlayer:
         ***Find out if this code works***
         '''
         # Version 1
-        # for i in range(curr, len(analysis)):
-        #     self.idx = i
-        #     for j in range (len(analysis[i])):
-        #         self.each_analyze = j
-        #         if str(dID) == getDeviceID(analysis[i][j]):
-        #             self.win.after(10, recurBox(analysis[i][j]))
+        for i in range(curr, len(analysis)):
+            self.idx = i
+            for j in range (len(analysis[i])):
+                self.each_analyze = j
+                if str(dID) == getDeviceID(analysis[i][j]):
+                    self.win.after(10, recur(analysis[i][j]))
 
         # Version 2 - while loop으로 바꾸기
         while btn != "btn finish":
