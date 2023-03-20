@@ -40,14 +40,14 @@ class ImagePlayer:
                     obj = getObject(item[i])
 
                     if isValid(item[i]):
-                        new_img = cv2.rectangle(new_img, (x, y), (x + w, y + h), color_valid, 3)
+                        new_img = cv2.rectangle(new_img, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 3)
                     else:
-                        new_img = cv2.rectangle(new_img, (x, y), (x + w, y + h), color_ex, 3)
+                        new_img = cv2.rectangle(new_img, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 3)
                     
                     new_img_pil = Image.fromarray(cv2.cvtColor(new_img, cv2.COLOR_BGR2RGB))
                     new_img_tk = ImageTk.PhotoImage(new_img_pil)
 
-                    self.img_tk.paste(new_img_tk)
+                    self.img_tk = new_img_tk
                     self.label.configure(image=self.img_tk)
                     
                 # self.win.after(10, self.showBox())
