@@ -9,23 +9,33 @@ from PIL import ImageDraw as Dr
 from readExcept import *
 from readLog import *
 
-def drawBox(win, p1, p2, p3, p4, logpath, tF, tT):
+# 이전 버튼 눌렀을 때
+def prevBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
+    return
+
+# 이후 버튼 눌렀을 때
+def nextBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
+    return
+
+# 재생 버튼 눌렀을 때
+def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
 # def drawBox(img, analysis, dID, tF, tT, curr):
     x, y, w, h = 0, 0, 0, 0
     obj = None
-    img_copy_tk = None
+    new_idx = 0
 
     analysis = readLog(logpath)
 
     color_valid = (0, 255, 0)
     color_ex = (0, 0, 255)
 
-    i = 0
+    i = idx
     j = 0
 
     while True:
         # cv2.imshow("image" + str(dID), img)
-        idx = i
+        new_idx = i
+        print(new_idx)
 
         analyze = analysis[i]
         maxJ = len(analyze)
@@ -54,7 +64,6 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT):
                     cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
                 else:
                     cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
-                # cv2.imshow("image" + ID , img_copy)
 
             if ID == dID12:
                 print(eData)
@@ -62,7 +71,6 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT):
                     cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
                 else:
                     cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
-                # cv2.imshow("image" + ID , img_copy)
 
             if ID == dID13:
                 print(eData)
@@ -70,7 +78,6 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT):
                     cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
                 else:
                     cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
-                # cv2.imshow("image" + ID , img_copy)
 
             if ID == dID14:
                 print(eData)
@@ -78,7 +85,6 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT):
                     cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
                 else:
                     cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
-                # cv2.imshow("image" + ID , img_copy)
 
             img_copy_11 = cv2.cvtColor(img_copy_11, cv2.COLOR_BGR2RGB)
             img_copy_12 = cv2.cvtColor(img_copy_12, cv2.COLOR_BGR2RGB)
@@ -105,6 +111,8 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT):
             p3.label.configure(image=p3.img_tk)
             p4.label.configure(image=p4.img_tk)
 
+            time.sleep(-time.time()%0.1)
+
             win.update()
 
         if j < maxJ - 1:
@@ -117,8 +125,6 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT):
         if key == ord("q"):
             cv2.destroyAllWindows()
             break
-    
-    return idx, img_copy_tk
 
 ''' drawBox Test '''
 # img1 = cv2.imread("C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/device_image/NIPA_11_20230321102221972.jpg")
