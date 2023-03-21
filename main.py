@@ -130,12 +130,33 @@ def isTimeSet():
 
         
 opened = False
+imgWin = None
+img11path = None
+img12path = None
+img13path = None
+img14path = None
+logFile = None
+player11 = None
+player12 = None
+player13 = None
+player14 = None
+log_idx = 0
+
 def playImg(btn):
     global player11, player12, player13, player14
     global opened
+    
     global setTime
     global setTimeF
     global setTimeT
+
+    global imgWin
+    global img11path
+    global img12path
+    global img13path
+    global img14path
+    global logFile
+    global log_idx
 
     tF = None
     tT = None
@@ -146,52 +167,61 @@ def playImg(btn):
         imgWin = Toplevel()
         imgWin.title("박스 표시")
         opened = True
-        # imgWin.geometry("1200x800")
         imgWin.protocol('WM_DELETE_WINDOW', lambda: onclose(imgWin))
 
-    if setTime:
-        if setTimeF == False and setTimeT:
-            tF = "00:00:00"
-            tT = playTo.get() + ":00"
-        elif setTimeF and setTimeT == False:
-            tF = playFrom.get() + ":00"
-            tT = "00:00:00"
-        elif setTimeF and setTimeT:
-            tF = playFrom.get() + ":00"
-            tT = playTo.get() + ":00"
-    else:
-        tF = "00:00:00"
-        tT = "23:59:59"
-
-    timeF = datetime.strptime(tF, "%H:%M:%S").time()
-    timeT = datetime.strptime(tT, "%H:%M:%S").time()
-
-    img11path = imgPath11Entry.get("1.0", "end-1c")
-    img12path = imgPath12Entry.get("1.0", "end-1c")
-    img13path = imgPath13Entry.get("1.0", "end-1c")
-    img14path = imgPath14Entry.get("1.0", "end-1c")
-    logFile = logPathEntry.get("1.0", "end-1c")
-
-    player11 = ImagePlayer(imgWin, img11path, 11, 0)
-    player12 = ImagePlayer(imgWin, img12path, 12, 0)
-    player13 = ImagePlayer(imgWin, img13path, 13, 0)
-    player14 = ImagePlayer(imgWin, img14path, 14, 0)
-
-    ''' 
-        재생할 데이터가 너무 많다보니 각각 다른줄이라 한 비디오가 끝나야 다른 게 시작되는 구조
-        동시에 재생할 방법 찾아야함
-    '''
     if btn == "btn play":
-        drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT)
+        if setTime:
+            if setTimeF == False and setTimeT:
+                tF = "00:00:00"
+                tT = playTo.get() + ":00"
+            elif setTimeF and setTimeT == False:
+                tF = playFrom.get() + ":00"
+                tT = "00:00:00"
+            elif setTimeF and setTimeT:
+                tF = playFrom.get() + ":00"
+                tT = playTo.get() + ":00"
+        else:
+            tF = "00:00:00"
+            tT = "23:59:59"
+
+        # 처음 재생할 때만
+        if log_idx == 0:
+            timeF = datetime.strptime(tF, "%H:%M:%S").time()
+            timeT = datetime.strptime(tT, "%H:%M:%S").time()
+
+            img11path = imgPath11Entry.get("1.0", "end-1c")
+            img12path = imgPath12Entry.get("1.0", "end-1c")
+            img13path = imgPath13Entry.get("1.0", "end-1c")
+            img14path = imgPath14Entry.get("1.0", "end-1c")
+            logFile = logPathEntry.get("1.0", "end-1c")
+
+            player11 = ImagePlayer(imgWin, img11path, 11, 0)
+            player12 = ImagePlayer(imgWin, img12path, 12, 0)
+            player13 = ImagePlayer(imgWin, img13path, 13, 0)
+            player14 = ImagePlayer(imgWin, img14path, 14, 0)
+
+        drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
+
+    # 일시정지, log_idx 유지
     elif btn == "btn pause":
-        pass
+        print("Paused")
+
+    # log_idx -= 1
     elif btn == "btn back":
-        pass
+        print("Back")
+
+    # log_idx += 1
     elif btn == "btn next":
-        pass
+        print("Next")
+
+    # 재생 중단, log_idx를 0으로 재설정
     elif btn == "btn stop":
-        pass
+        log_idx = 0
+        print("Stop")
+
+    # 종료 버튼 누름으로 창 닫기
     elif btn == "btn finish":
+        print("Finish")
         opened = False
         imgWin.destroy()
     
