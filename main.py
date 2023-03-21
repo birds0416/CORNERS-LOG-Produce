@@ -7,7 +7,7 @@ import json
 # import from local py
 from readLog import *
 from readExcept import *
-from showBox import *
+from createBox import *
 
 # Import Tkinter
 from tkinter import *
@@ -96,10 +96,51 @@ def getLog():
     else:
         print("Image Not Selected")
 
+setTime = False
+setTimeF = False
+setTimeT = False
+def isTimeSet():
+    global setTime
+    global setTimeF
+    global setTimeT
+    tF = playFrom.get()
+    tT = playTo.get()
+
+    # 둘다 설정 안했을 때 -> 처음부터 시작해서 끝까지
+    if tF == "시작시간" and tT == "종료시간":
+        setTime = False
+
+    # 시작시간 설정은 안하고 종료시간만 설정했을 때 -> 처음부터 시작해서 설정한 시간까지
+    elif tF == "시작시간" and tT != "종료시간":
+        setTime = True
+        setTimeF = False
+        setTimeT = True
+    
+    # 종료시간 설정은 안하고 시작시간만 설정했을 때 -> 설정한 시간부터 시작해서 끝까지
+    elif tF != "시작시간" and tT == "종료시간":
+        setTime = True
+        setTimeF = True
+        setTimeT = False
+    
+    # 둘다 설정했을 때 -> 설정한 시간부터 시작해서 설정한 시간까지
+    elif tF != "시작시간" and tT != "종료시간":
+        setTime = True
+        setTimeF = True
+        setTimeT = True
+
+        
 opened = False
 def playImg(btn):
     global player11, player12, player13, player14
     global opened
+    global setTime
+    global setTimeF
+    global setTimeT
+
+    tF = None
+    tT = None
+    timeF = None
+    timeT = None
 
     if not opened:
         imgWin = Toplevel()
@@ -108,8 +149,19 @@ def playImg(btn):
         # imgWin.geometry("1200x800")
         imgWin.protocol('WM_DELETE_WINDOW', lambda: onclose(imgWin))
 
-    tF = playFrom.get() + ":00"
-    tT = playTo.get() + ":00"
+    if setTime:
+        if setTimeF == False and setTimeT:
+            tF = "00:00:00"
+            tT = playTo.get() + ":00"
+        elif setTimeF and setTimeT == False:
+            tF = playFrom.get() + ":00"
+            tT = "00:00:00"
+        elif setTimeF and setTimeT:
+            tF = playFrom.get() + ":00"
+            tT = playTo.get() + ":00"
+    else:
+        tF = "00:00:00"
+        tT = "23:59:59"
 
     timeF = datetime.strptime(tF, "%H:%M:%S").time()
     timeT = datetime.strptime(tT, "%H:%M:%S").time()
@@ -120,21 +172,17 @@ def playImg(btn):
     img14path = imgPath14Entry.get("1.0", "end-1c")
     logFile = logPathEntry.get("1.0", "end-1c")
 
-    player11 = ImagePlayer(imgWin, img11path, 11, 0, 0)
-    player12 = ImagePlayer(imgWin, img12path, 12, 0, 0)
-    player13 = ImagePlayer(imgWin, img13path, 13, 0, 0)
-    player14 = ImagePlayer(imgWin, img14path, 14, 0, 0)
+    player11 = ImagePlayer(imgWin, img11path, 11, 0)
+    player12 = ImagePlayer(imgWin, img12path, 12, 0)
+    player13 = ImagePlayer(imgWin, img13path, 13, 0)
+    player14 = ImagePlayer(imgWin, img14path, 14, 0)
 
-    player11.showBox(logFile, 11, timeF, timeT, btn)
-    player12.showBox(logFile, 12, timeF, timeT, btn)
-    player13.showBox(logFile, 13, timeF, timeT, btn)
-    player14.showBox(logFile, 14, timeF, timeT, btn)
-
+    ''' 
+        재생할 데이터가 너무 많다보니 각각 다른줄이라 한 비디오가 끝나야 다른 게 시작되는 구조
+        동시에 재생할 방법 찾아야함
+    '''
     if btn == "btn play":
-        player11.showBox(logFile, 11, timeF, timeT, btn, player11.idx)
-        player12.showBox(logFile, 12, timeF, timeT, btn, player12.idx)
-        player13.showBox(logFile, 13, timeF, timeT, btn, player13.idx)
-        player14.showBox(logFile, 14, timeF, timeT, btn, player14.idx)
+        drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT)
     elif btn == "btn pause":
         pass
     elif btn == "btn back":

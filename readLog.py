@@ -47,7 +47,7 @@ def getTime(analyze):
     ymd = timeInfo[:10].split("-")
 
     # hms = "hour:min:sec"
-    hms = timeInfo[11:].split(",")[0]
+    hms = timeInfo[12:].split(",")[0]
     analyzeTime = datetime.strptime(hms, "%H:%M:%S").time()
 
     return ymd, analyzeTime
@@ -89,7 +89,7 @@ def getBox(analyze):
 # analysis = readLog(path)
 
 # for item in analysis:
-#     for i in range(1, len(item)):
+#     for i in range(len(item)):
 #         iDate, iTime = getTime(item[i])
 #         print("Analyze Date: ", iDate)
 #         print("Analyze Time: ", iTime)
