@@ -1,6 +1,6 @@
 import json
 
-jsonPath = "C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/대상WL 로그재현 Tool/except_region/config.json"
+jsonPath = "./except_region/config.json"
 with open(jsonPath, 'r') as rf:
     region = json.load(rf)
 
