@@ -42,6 +42,8 @@ class ImagePlayer:
         pnt_datas = pnt2draw(coord)
         color_ex = (0, 0, 255)
 
+        img_copy = self.img.copy()
+
         drawData = []
         for shape in pnt_datas:
             t = []
@@ -50,4 +52,13 @@ class ImagePlayer:
             drawData.append(t)
 
         for d in drawData:
-            self.img = cv2.polylines(self.img, np.int32([d]), True, color_ex, 2)
+            cv2.polylines(img_copy, np.int32([d]), True, color_ex, 2)
+        
+        img_copy = cv2.cvtColor(img_copy, cv2.COLOR_BGR2RGB)
+        img_copy_pil = Image.fromarray(img_copy)
+        img_copy_tk = ImageTk.PhotoImage(img_copy_pil)
+
+        self.img_tk = img_copy_tk
+        self.label.configure(image=self.img_tk)
+
+        self.win.update()
