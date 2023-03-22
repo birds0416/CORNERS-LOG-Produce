@@ -37,28 +37,33 @@ class ImagePlayer:
 
         self.label.config(image=self.img_tk)
         
-    def drawExcept(self, dID):
+    def drawExcept(self, dID, isShow):
         coord = getRegion(dID)
         pnt_datas = pnt2draw(coord)
         color_ex = (0, 0, 255)
-
         img_copy = self.img.copy()
 
-        drawData = []
-        for shape in pnt_datas:
-            t = []
-            for pnt in shape:
-                t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
-            drawData.append(t)
+        if isShow == 1:
+            drawData = []
+            for shape in pnt_datas:
+                t = []
+                for pnt in shape:
+                    t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
+                drawData.append(t)
 
-        for d in drawData:
-            cv2.polylines(img_copy, np.int32([d]), True, color_ex, 2)
-        
-        img_copy = cv2.cvtColor(img_copy, cv2.COLOR_BGR2RGB)
-        img_copy_pil = Image.fromarray(img_copy)
-        img_copy_tk = ImageTk.PhotoImage(img_copy_pil)
+            for d in drawData:
+                cv2.polylines(img_copy, np.int32([d]), True, color_ex, 2)
+            
+            img_copy = cv2.cvtColor(img_copy, cv2.COLOR_BGR2RGB)
+            img_copy_pil = Image.fromarray(img_copy)
+            img_copy_tk = ImageTk.PhotoImage(img_copy_pil)
 
-        self.img_tk = img_copy_tk
-        self.label.configure(image=self.img_tk)
-
-        self.win.update()
+            self.label.configure(image=img_copy_tk)
+            self.win.update()
+        else:
+            img_copy = cv2.cvtColor(img_copy, cv2.COLOR_BGR2RGB)
+            img_copy_pil = Image.fromarray(img_copy)
+            img_copy_tk = ImageTk.PhotoImage(img_copy_pil)
+            
+            self.label.configure(image=img_copy_tk)
+            self.win.update()

@@ -199,6 +199,8 @@ def playImg(btn):
             player13 = ImagePlayer(imgWin, img13path, 13, 0)
             player14 = ImagePlayer(imgWin, img14path, 14, 0)
         
+
+        getExcept()
         drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
 
     # 일시정지, log_idx 유지
@@ -231,10 +233,15 @@ def getExcept():
     global opened
     if opened:
         if showExcept.get() == 1:
-            player11.drawExcept(11)
-            player12.drawExcept(12)
-            player13.drawExcept(13)
-            player14.drawExcept(14)
+            pass
+        else:
+            pass
+    else:
+        if showExcept.get() == 1:
+            pass
+        else:
+            pass
+
 
 if __name__ == "__main__":
 

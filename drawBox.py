@@ -115,6 +115,98 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
 
                 win.update()
 
+def drawExcept(win, p1, p2, p3, p4, isShow):
+    color_ex = (0, 0, 255)
+
+    img_copy_11 = p1.img.copy()
+    img_copy_12 = p2.img.copy()
+    img_copy_13 = p3.img.copy()
+    img_copy_14 = p4.img.copy()
+
+    dID11 = p1.deviceID
+    dID12 = p2.deviceID
+    dID13 = p3.deviceID
+    dID14 = p4.deviceID
+
+    coord11 = getRegion(dID11)
+    coord12 = getRegion(dID12)
+    coord13 = getRegion(dID13)
+    coord14 = getRegion(dID14)
+
+    pnt_datas11 = pnt2draw(coord11)
+    pnt_datas12 = pnt2draw(coord12)
+    pnt_datas13 = pnt2draw(coord13)
+    pnt_datas14 = pnt2draw(coord14)
+
+    if isShow == 1:
+        drawData11 = []
+        drawData12 = []
+        drawData13 = []
+        drawData14 = []
+
+        for shape in pnt_datas11:
+            t = []
+            for pnt in shape:
+                t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
+            drawData11.append(t)
+
+        for shape in pnt_datas12:
+            t = []
+            for pnt in shape:
+                t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
+            drawData12.append(t)
+
+        for shape in pnt_datas13:
+            t = []
+            for pnt in shape:
+                t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
+            drawData13.append(t)
+
+        for shape in pnt_datas14:
+            t = []
+            for pnt in shape:
+                t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
+            drawData14.append(t)
+
+        for d in drawData11:
+            cv2.polylines(img_copy_11, np.int32([d]), True, color_ex, 2)
+
+        for d in drawData12:
+            cv2.polylines(img_copy_12, np.int32([d]), True, color_ex, 2)
+
+        for d in drawData13:
+            cv2.polylines(img_copy_13, np.int32([d]), True, color_ex, 2)
+
+        for d in drawData14:
+            cv2.polylines(img_copy_14, np.int32([d]), True, color_ex, 2)
+        
+    img_copy_11 = cv2.cvtColor(img_copy_11, cv2.COLOR_BGR2RGB)
+    img_copy_12 = cv2.cvtColor(img_copy_12, cv2.COLOR_BGR2RGB)
+    img_copy_13 = cv2.cvtColor(img_copy_13, cv2.COLOR_BGR2RGB)
+    img_copy_14 = cv2.cvtColor(img_copy_14, cv2.COLOR_BGR2RGB)
+
+    img_copy_11_pil = Image.fromarray(img_copy_11)
+    img_copy_12_pil = Image.fromarray(img_copy_12)
+    img_copy_13_pil = Image.fromarray(img_copy_13)
+    img_copy_14_pil = Image.fromarray(img_copy_14)
+
+    img_copy_11_tk = ImageTk.PhotoImage(img_copy_11_pil)
+    img_copy_12_tk = ImageTk.PhotoImage(img_copy_12_pil)
+    img_copy_13_tk = ImageTk.PhotoImage(img_copy_13_pil)
+    img_copy_14_tk = ImageTk.PhotoImage(img_copy_14_pil)
+
+    p1.img_tk = img_copy_11_tk
+    p2.img_tk = img_copy_12_tk
+    p3.img_tk = img_copy_13_tk
+    p4.img_tk = img_copy_14_tk
+
+    p1.label.configure(image=p1.img_tk)
+    p2.label.configure(image=p2.img_tk)
+    p3.label.configure(image=p3.img_tk)
+    p4.label.configure(image=p4.img_tk)
+
+    win.update()
+
 ''' drawBox Test '''
 # img1 = cv2.imread("C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/device_image/NIPA_11_20230321102221972.jpg")
 # img2 = cv2.imread("C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/device_image/NIPA_12_20230321093507232.jpg")
