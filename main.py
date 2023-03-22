@@ -158,7 +158,6 @@ def playImg(btn):
     timeT = None
 
     isTimeSet()
-    log_idx = getIdx()
 
     if not opened:
         imgWin = Toplevel()
@@ -198,8 +197,8 @@ def playImg(btn):
             player12 = ImagePlayer(imgWin, img12path, 12, 0)
             player13 = ImagePlayer(imgWin, img13path, 13, 0)
             player14 = ImagePlayer(imgWin, img14path, 14, 0)
-        
 
+        log_idx = getIdx()
         getExcept()
         drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
 
@@ -210,15 +209,17 @@ def playImg(btn):
     # log_idx -= 1
     elif btn == "btn back":
         print("Back")
+        pass
 
     # log_idx += 1
     elif btn == "btn next":
         print("Next")
+        pass
 
     # 재생 중단, log_idx를 0으로 재설정
     elif btn == "btn stop":
-        log_idx = 0
         print("Stop")
+        pass
 
     # 종료 버튼 누름으로 창 닫기
     elif btn == "btn finish":
