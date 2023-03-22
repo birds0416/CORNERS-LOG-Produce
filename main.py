@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import pandas as pd
 import os
+import os.path
 import json
 
 # import from local py
@@ -22,6 +23,7 @@ win.title("대상WL 로그재현 Tool")
 #Set the geometry of Tkinter frame
 win.geometry("900x300")
 
+
 '''
 TODO
 * ---로그파일 불러와서 읽기
@@ -29,6 +31,15 @@ TODO
 * 하단 버튼 기능 전부 구현
 * ---이미지 경로 tkinter 윈도우에 4개 연속으로 띄워서 박스 그리기
 '''
+
+# 이미지 경로 저장
+imgPathList = []
+savePathName = "path.txt"
+if os.path.isfile(savePathName):
+    savePath = open(savePathName, 'r')
+    for i, path in enumerate(savePath.readlines()):
+        path = path.strip()
+        imgPathList.append(path)
 
 # returns is value is None or not
 def isEmpty(value):
@@ -66,12 +77,23 @@ def getImg(btn):
         print("user chose", path)
         if btn == "btn11 clicked":
             imgPath11Entry.insert("1.0", path)
+            if path not in imgPathList:
+                imgPathList.append(path)
+
         elif btn == "btn12 clicked":
             imgPath12Entry.insert("1.0", path)
+            if path not in imgPathList:
+                imgPathList.append(path)
+
         elif btn == "btn13 clicked":
             imgPath13Entry.insert("1.0", path)
+            if path not in imgPathList:
+                imgPathList.append(path)
+
         elif btn == "btn14 clicked":
             imgPath14Entry.insert("1.0", path)
+            if path not in imgPathList:
+                imgPathList.append(path)
 
     else:
         print("Image Not Selected")
@@ -101,26 +123,26 @@ setTimeT = False
 def isTimeSet():
     global setTimeF
     global setTimeT
-    tF = playFrom.get()
-    tT = playTo.get()
+    tF = playFromEntry.get("1.0", "end-1c")
+    tT = playToEntry.get("1.0", "end-1c")
 
     # 둘다 설정 안했을 때 -> 처음부터 시작해서 끝까지
-    if tF == "시작시간" and tT == "종료시간":
+    if tF == "00:00:00" and tT == "23:59:59":
         setTimeF = False
         setTimeT = False
 
     # 시작시간 설정은 안하고 종료시간만 설정했을 때 -> 처음부터 시작해서 설정한 시간까지
-    elif tF == "시작시간" and tT != "종료시간":
+    elif tF == "00:00:00" and tT != "23:59:59":
         setTimeF = False
         setTimeT = True
     
     # 종료시간 설정은 안하고 시작시간만 설정했을 때 -> 설정한 시간부터 시작해서 끝까지
-    elif tF != "시작시간" and tT == "종료시간":
+    elif tF != "00:00:00" and tT == "23:59:59":
         setTimeF = True
         setTimeT = False
     
     # 둘다 설정했을 때 -> 설정한 시간부터 시작해서 설정한 시간까지
-    elif tF != "시작시간" and tT != "종료시간":
+    elif tF != "00:00:00" and tT != "00:00:00":
         setTimeF = True
         setTimeT = True
 
@@ -169,15 +191,15 @@ def playImg(btn):
     if btn == "btn play":
         if setTimeF == False and setTimeT == True:
             tF = "00:00:00"
-            tT = playTo.get() + ":00"
+            tT = playToEntry.get("1.0", "end-1c")
 
         elif setTimeF == True and setTimeT == False:
-            tF = playFrom.get() + ":00"
+            tF = playFromEntry.get("1.0", "end-1c")
             tT = "23:59:59"
 
         elif setTimeF == True and setTimeT == True:
-            tF = playFrom.get() + ":00"
-            tT = playTo.get() + ":00"
+            tF = playFromEntry.get("1.0", "end-1c")
+            tT = playToEntry.get("1.0", "end-1c")
 
         else:
             tF = "00:00:00"
@@ -308,29 +330,13 @@ if __name__ == "__main__":
     playInterval = Label(contain6, text="재생구간", font=('Arial', 10))
     playInterval.pack(side="left", padx=(30, 65))
 
-    timeList = [
-        "07:00", "07:30",
-        "08:00", "08:30",
-        "09:00", "09:30",
-        "10:00", "10:30",
-        "11:00", "11:30",
-        "12:00","12:30",
-        "13:00", "13:30",
-        "14:00", "14:30", 
-        "15:00", "15:30",
-        "16:00", "16:30",
-        "17:00", "17:30",
-        "18:00", "18:30",
-        "19:00", "19:30",
-        "20:00", "20:30"]
+    playFromVal = StringVar(contain6, value="00:00:00")
+    playFromEntry = Entry(contain6, width=20, textvariable = playFromVal)
+    playFromEntry.pack(side="left", padx=(0, 3), pady=5)
 
-    playFrom = ttk.Combobox(contain6, width=15, height=5, values=timeList)
-    playFrom.set("시작시간")
-    playFrom.pack(side="left", padx=(0, 3), pady=5)
-
-    playTo = ttk.Combobox(contain6, width=15, height=5, values=timeList)
-    playTo.set("종료시간")
-    playTo.pack(side="left", padx=(0, 3), pady=5)
+    playToVal = StringVar(contain6, value="23:59:59")
+    playToEntry = Entry(contain6, width=20, textvariable = playToVal)
+    playToEntry.pack(side="left", padx=(0, 3), pady=5)
 
     ''' 버튼 모음 '''
     contain7  = Frame(win)
@@ -342,5 +348,28 @@ if __name__ == "__main__":
     btn4 = Button(contain7, text="이후", width=15, command=lambda btn="btn next" : playImg(btn)).pack(side="left", padx=10, pady=5)
     btn5 = Button(contain7, text="중지", width=15, command=lambda btn="btn stop" : playImg(btn)).pack(side="left", padx=10, pady=5)
     btn6 = Button(contain7, text="종료", width=15, command=lambda btn="btn finish" : playImg(btn)).pack(side="left", padx=10, pady=5)
+
+
+    ''' 저장된 이미지 경로 불러오기 '''
+    savePathName = "path.txt"
+    if os.path.isfile(savePathName):
+        savePath = open(savePathName, 'r')
+        for i,path in enumerate(savePath.readlines()):
+            path = path.strip()
+            if i == 0:
+                imgPath11Entry.insert("1.0", path)
+            elif i == 1:
+                imgPath12Entry.insert("1.0", path)
+            elif i == 2:
+                imgPath13Entry.insert("1.0", path)
+                imgPath12Entry.insert("1.0", path)
+            elif i == 3:
+                imgPath14Entry.insert("1.0", path)
+
+    imgPathFile = open("path.txt", 'w')
+    for path in imgPathList:
+        path = path + "\n"
+        imgPathFile.write(path)
+    imgPathFile.close()
 
     win.mainloop()
