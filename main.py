@@ -157,6 +157,7 @@ def playImg(btn):
     timeF = None
     timeT = None
 
+    log_idx = getIdx()
     isTimeSet()
 
     if not opened:
