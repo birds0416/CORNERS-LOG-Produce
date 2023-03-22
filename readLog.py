@@ -5,14 +5,25 @@ from datetime import datetime
     analysis 리스트안에는 분석 1회에 대한 정보가 들어있음
     한 개의 아이템은 START ANALYZE로 시작함, 아이템별로 length가 다름
 '''
+
+def getFileSize(logPath):
+    logFile = open(logPath, 'rt', encoding='UTF8')
+    size = 0
+
+    for i, line in enumerate(logFile):
+        size = i
+    return size
+
+
 def readLog(logPath):
     logFile = open(logPath, 'rt', encoding='UTF8')
 
     analysis = []
     temp = []
     isAnalyze = False
+    filesize = getFileSize(logPath)
 
-    for i, line in enumerate(logFile):
+    for idx, line in enumerate(logFile):
         if line[33:54] == "=== START ANALIZE ===":
             isAnalyze = True
             # 1회 분석을 기준으로 리스트 업데이트
@@ -24,15 +35,22 @@ def readLog(logPath):
         else:
             isAnalyze = False
 
-        info = line[33:].split(", ")
+        info = line[33:].split(",")
+        new_info = []
+        for i in info:
+            new_info.append(i.strip())
         
-        if isAnalyze == False and i != 0:
+        if isAnalyze == False and idx != 0:
             # DEBUG 메시지 제외
             if line[25:32] == "[DEBUG]":
                 pass
-            if info[0].startswith("Detect object") or info[0].startswith("MQTT"):
+            if new_info[0].startswith("Detect object"):
                 temp.append(line)
             # 이벤트 발생 메시지 제외
+
+        if idx == filesize:
+            analysis.append(temp)
+            temp = []
 
     return analysis
 
@@ -40,55 +58,129 @@ def readLog(logPath):
 # TODO
 # 1회 분석에서 시간 정보 가져오기
 def getTime(analyze):
-
-    timeInfo = analyze[1:24]
+    timeInfo = []
+    for data in analyze:
+        timeInfo.append(data[1:24])
 
     # ymd = [year, month, day] 
-    ymd = timeInfo[:10].split("-")
-
+    ymd = []
     # hms = "hour:min:sec"
-    hms = timeInfo[12:].split(",")[0]
-    analyzeTime = datetime.strptime(hms, "%H:%M:%S").time()
-
+    analyzeTime = []
+    for time in timeInfo:
+        ymd.append(time[:10].split("-"))
+        hms = time[11:].split(",")[0]
+        analyzeTime.append(datetime.strptime(hms, "%H:%M:%S").time())
+    
     return ymd, analyzeTime
 
 # 1회 분석에서 예외구역인지 아닌지 판단
 def isValid(analyze):
-    allInfo = analyze[33:].split(", ")
-    if "VALID" in allInfo[0]:
-        return True
-    elif "EX" in allInfo[0]:
-        return False
+    info = []
+    for data in analyze:
+        temp = data[33:].split(",")
+        each_info = []
+        for t in temp:
+            new_t = t.strip()
+            each_info.append(new_t)
+        info.append(each_info)
+    
+    valid = []
+    for i in info:
+        temp = i[0].split('=')[0].strip().replace("Detect object ", "")
+        if "VALID" in temp:
+            valid.append("VALID")
+        elif "EX" in temp:
+            valid.append("EX")
+    
+    return valid
+    
 
 # 1회 분석에서 장비 번호 가져오기
 def getDeviceID(analyze):
-    allInfo = analyze[33:].split(", ")
-    dID = allInfo[0][len(allInfo[0]) - 2:]
+
+    info = []
+    for data in analyze:
+        temp = data[33:].split(",")
+        each_info = []
+        for t in temp:
+            new_t = t.strip()
+            each_info.append(new_t)
+        info.append(each_info)
+
+    dID = []
+    for d in info:
+        temp = d[0].split('=')[1].strip()
+        dID.append(temp)
+
     return dID
 
 # 1회 분석에서 감지 객체 가져오기
 def getObject(analyze):
-    allInfo = analyze[33:].split(", ")
-    obj = allInfo[1]
+    info = []
+    for data in analyze:
+        temp = data[33:].split(",")
+        each_info = []
+        for t in temp:
+            new_t = t.strip()
+            each_info.append(new_t)
+        info.append(each_info)
+    
+    obj = []
+    for o in info:
+        obj.append(o[1])
+
     return obj
 
 # 1회 분석에서 박스 정보(x, y, w, h) 가져오기
 def getBox(analyze):
-    allInfo = analyze[33:].split(", ")
-    boxInfo = allInfo[2:6]
-    x, y, w, h = [int(e) for e in boxInfo]
-    return x, y, w, h
+    info = []
+    for data in analyze:
+        temp = data[33:].split(",")
+        each_info = []
+        for t in temp:
+            new_t = t.strip()
+            each_info.append(new_t)
+        info.append(each_info)
+
+    boxInfo = []
+    for b in info:
+        x, y, w, h = [int(e) for e in b[2:6]]
+        boxInfo.append([x, y, w, h])
+
+    return boxInfo
 
 '''
     readLog.py TEST
     Analysis 리스트에 잘 들어가는 거 확인 O
     다른 function들 작동 확인 O
 '''
+
+test = ["[2023-03-21 09:42:27,094][INFO ] Detect object VALID = 11, forklift, 460, 666, 44, 140, midX : 482, bottom : 806\n",
+        "[2023-03-21 09:42:27,095][INFO ] Detect object EX 2  = 12, forklift, 572, 564, 80, 180, midX : 612, bottom : 744\n"]
+
+# _, time = getTime(test)
+# print(len(time))
+# for t in time:
+#     print(t)
+# val = isValid(test)
+# print(val)
+# did = getDeviceID(test)
+# print(len(did))
+
+# obj = getObject(test)
+# print(len(obj))
+
+# box = getBox(test)
+# print(len(box))
+
+
 # import json
-# path = "C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/대상WL 로그재현 Tool/log/DetectManager20230317.log"
+# path = "./log/8333.log"
 # analysis = readLog(path)
+# print(analysis)
 
 # for item in analysis:
+#     print(item)
 #     for i in range(len(item)):
 #         iDate, iTime = getTime(item[i])
 #         print("Analyze Date: ", iDate)
