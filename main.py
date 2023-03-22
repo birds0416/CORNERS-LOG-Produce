@@ -96,11 +96,9 @@ def getLog():
     else:
         print("Image Not Selected")
 
-setTime = False
 setTimeF = False
 setTimeT = False
 def isTimeSet():
-    global setTime
     global setTimeF
     global setTimeT
     tF = playFrom.get()
@@ -108,27 +106,24 @@ def isTimeSet():
 
     # 둘다 설정 안했을 때 -> 처음부터 시작해서 끝까지
     if tF == "시작시간" and tT == "종료시간":
-        setTime = False
+        setTimeF = False
+        setTimeT = False
 
     # 시작시간 설정은 안하고 종료시간만 설정했을 때 -> 처음부터 시작해서 설정한 시간까지
     elif tF == "시작시간" and tT != "종료시간":
-        setTime = True
         setTimeF = False
         setTimeT = True
     
     # 종료시간 설정은 안하고 시작시간만 설정했을 때 -> 설정한 시간부터 시작해서 끝까지
     elif tF != "시작시간" and tT == "종료시간":
-        setTime = True
         setTimeF = True
         setTimeT = False
     
     # 둘다 설정했을 때 -> 설정한 시간부터 시작해서 설정한 시간까지
     elif tF != "시작시간" and tT != "종료시간":
-        setTime = True
         setTimeF = True
         setTimeT = True
 
-        
 opened = False
 imgWin = None
 img11path = None
@@ -146,7 +141,6 @@ def playImg(btn):
     global player11, player12, player13, player14
     global opened
     
-    global setTime
     global setTimeF
     global setTimeT
 
@@ -163,6 +157,9 @@ def playImg(btn):
     timeF = None
     timeT = None
 
+    isTimeSet()
+    log_idx = getIdx()
+
     if not opened:
         imgWin = Toplevel()
         imgWin.title("박스 표시")
@@ -170,25 +167,27 @@ def playImg(btn):
         imgWin.protocol('WM_DELETE_WINDOW', lambda: onclose(imgWin))
 
     if btn == "btn play":
-        if setTime:
-            if setTimeF == False and setTimeT:
-                tF = "00:00:00"
-                tT = playTo.get() + ":00"
-            elif setTimeF and setTimeT == False:
-                tF = playFrom.get() + ":00"
-                tT = "00:00:00"
-            elif setTimeF and setTimeT:
-                tF = playFrom.get() + ":00"
-                tT = playTo.get() + ":00"
+        if setTimeF == False and setTimeT == True:
+            tF = "00:00:00"
+            tT = playTo.get() + ":00"
+
+        elif setTimeF == True and setTimeT == False:
+            tF = playFrom.get() + ":00"
+            tT = "23:59:59"
+
+        elif setTimeF == True and setTimeT == True:
+            tF = playFrom.get() + ":00"
+            tT = playTo.get() + ":00"
+
         else:
             tF = "00:00:00"
             tT = "23:59:59"
 
+        timeF = datetime.strptime(tF, "%H:%M:%S").time()
+        timeT = datetime.strptime(tT, "%H:%M:%S").time()
+        
         # 처음 재생할 때만
         if log_idx == 0:
-            timeF = datetime.strptime(tF, "%H:%M:%S").time()
-            timeT = datetime.strptime(tT, "%H:%M:%S").time()
-
             img11path = imgPath11Entry.get("1.0", "end-1c")
             img12path = imgPath12Entry.get("1.0", "end-1c")
             img13path = imgPath13Entry.get("1.0", "end-1c")
@@ -199,7 +198,7 @@ def playImg(btn):
             player12 = ImagePlayer(imgWin, img12path, 12, 0)
             player13 = ImagePlayer(imgWin, img13path, 13, 0)
             player14 = ImagePlayer(imgWin, img14path, 14, 0)
-
+        
         drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
 
     # 일시정지, log_idx 유지
@@ -224,6 +223,7 @@ def playImg(btn):
         print("Finish")
         opened = False
         imgWin.destroy()
+        win.destroy()
     
     imgWin.mainloop()
 
