@@ -11,6 +11,11 @@ from readExcept import *
 from readLog import *
 
 new_idx = 0
+def initIdx():
+    global new_idx
+    new_idx = 0
+    return new_idx
+
 def getIdx():
     global new_idx
     print("new_idx = ", new_idx)
@@ -18,19 +23,207 @@ def getIdx():
 
 # 이전 버튼 눌렀을 때
 def prevBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
-    return
+    global new_idx
+
+    color_valid = (0, 255, 0)
+    color_ex = (0, 0, 255)
+
+    analysis = readLog(logpath)
+
+    analyze = analysis[idx - 1]
+    new_idx = idx - 1
+
+    img_copy_11 = p1.img.copy()
+    img_copy_12 = p2.img.copy()
+    img_copy_13 = p3.img.copy()
+    img_copy_14 = p4.img.copy()
+
+    dID11 = str(p1.deviceID)
+    dID12 = str(p2.deviceID)
+    dID13 = str(p3.deviceID)
+    dID14 = str(p4.deviceID)
+
+    # 1회 분석의 값들이 다 리스트 형태, 순서는 다 같음
+    _, allTime = getTime(analyze)
+    box = getBox(analyze)
+    obj = getObject(analyze)
+    dID = getDeviceID(analyze)
+    valid = isValid(analyze)
+    
+    for j in range(len(analyze)):
+        x = box[j][0]
+        y = box[j][1]
+        w = box[j][2]
+        h = box[j][3]
+
+        if allTime[j] > tF and allTime[j] < tT:
+            if dID[j] == dID11:
+                print(analyze[j])
+                if valid[j] == "VALID":
+                    cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                if valid[j] == "EX":
+                    cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+
+            if dID[j] == dID12:
+                print(analyze[j])
+                if valid[j] == "VALID":
+                    cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                if valid[j] == "EX":
+                    cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+
+            if dID[j] == dID13:
+                print(analyze[j])
+                if valid[j] == "VALID":
+                    cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                if valid[j] == "EX":
+                    cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+
+            if dID[j] == dID14:
+                print(analyze[j])
+                if valid[j] == "VALID":
+                    cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                if valid[j] == "EX":
+                    cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+    
+    img_copy_11 = cv2.cvtColor(img_copy_11, cv2.COLOR_BGR2RGB)
+    img_copy_12 = cv2.cvtColor(img_copy_12, cv2.COLOR_BGR2RGB)
+    img_copy_13 = cv2.cvtColor(img_copy_13, cv2.COLOR_BGR2RGB)
+    img_copy_14 = cv2.cvtColor(img_copy_14, cv2.COLOR_BGR2RGB)
+
+    img_copy_11_pil = Image.fromarray(img_copy_11)
+    img_copy_12_pil = Image.fromarray(img_copy_12)
+    img_copy_13_pil = Image.fromarray(img_copy_13)
+    img_copy_14_pil = Image.fromarray(img_copy_14)
+
+    img_copy_11_tk = ImageTk.PhotoImage(img_copy_11_pil)
+    img_copy_12_tk = ImageTk.PhotoImage(img_copy_12_pil)
+    img_copy_13_tk = ImageTk.PhotoImage(img_copy_13_pil)
+    img_copy_14_tk = ImageTk.PhotoImage(img_copy_14_pil)
+
+    p1.img_tk = img_copy_11_tk
+    p2.img_tk = img_copy_12_tk
+    p3.img_tk = img_copy_13_tk
+    p4.img_tk = img_copy_14_tk
+
+    p1.label.configure(image=p1.img_tk)
+    p2.label.configure(image=p2.img_tk)
+    p3.label.configure(image=p3.img_tk)
+    p4.label.configure(image=p4.img_tk)
+
+    win.update()
+
 
 # 이후 버튼 눌렀을 때
 def nextBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
-    return
+    global new_idx
+
+    color_valid = (0, 255, 0)
+    color_ex = (0, 0, 255)
+
+    analysis = readLog(logpath)
+
+    analyze = analysis[idx + 1]
+    new_idx = idx + 1
+
+    img_copy_11 = p1.img.copy()
+    img_copy_12 = p2.img.copy()
+    img_copy_13 = p3.img.copy()
+    img_copy_14 = p4.img.copy()
+
+    dID11 = str(p1.deviceID)
+    dID12 = str(p2.deviceID)
+    dID13 = str(p3.deviceID)
+    dID14 = str(p4.deviceID)
+
+    # 1회 분석의 값들이 다 리스트 형태, 순서는 다 같음
+    _, allTime = getTime(analyze)
+    box = getBox(analyze)
+    obj = getObject(analyze)
+    dID = getDeviceID(analyze)
+    valid = isValid(analyze)
+    
+    for j in range(len(analyze)):
+        x = box[j][0]
+        y = box[j][1]
+        w = box[j][2]
+        h = box[j][3]
+
+        if allTime[j] > tF and allTime[j] < tT:
+            if dID[j] == dID11:
+                print(analyze[j])
+                if valid[j] == "VALID":
+                    cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                if valid[j] == "EX":
+                    cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+
+            if dID[j] == dID12:
+                print(analyze[j])
+                if valid[j] == "VALID":
+                    cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                if valid[j] == "EX":
+                    cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+
+            if dID[j] == dID13:
+                print(analyze[j])
+                if valid[j] == "VALID":
+                    cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                if valid[j] == "EX":
+                    cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+
+            if dID[j] == dID14:
+                print(analyze[j])
+                if valid[j] == "VALID":
+                    cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                if valid[j] == "EX":
+                    cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+    
+    img_copy_11 = cv2.cvtColor(img_copy_11, cv2.COLOR_BGR2RGB)
+    img_copy_12 = cv2.cvtColor(img_copy_12, cv2.COLOR_BGR2RGB)
+    img_copy_13 = cv2.cvtColor(img_copy_13, cv2.COLOR_BGR2RGB)
+    img_copy_14 = cv2.cvtColor(img_copy_14, cv2.COLOR_BGR2RGB)
+
+    img_copy_11_pil = Image.fromarray(img_copy_11)
+    img_copy_12_pil = Image.fromarray(img_copy_12)
+    img_copy_13_pil = Image.fromarray(img_copy_13)
+    img_copy_14_pil = Image.fromarray(img_copy_14)
+
+    img_copy_11_tk = ImageTk.PhotoImage(img_copy_11_pil)
+    img_copy_12_tk = ImageTk.PhotoImage(img_copy_12_pil)
+    img_copy_13_tk = ImageTk.PhotoImage(img_copy_13_pil)
+    img_copy_14_tk = ImageTk.PhotoImage(img_copy_14_pil)
+
+    p1.img_tk = img_copy_11_tk
+    p2.img_tk = img_copy_12_tk
+    p3.img_tk = img_copy_13_tk
+    p4.img_tk = img_copy_14_tk
+
+    p1.label.configure(image=p1.img_tk)
+    p2.label.configure(image=p2.img_tk)
+    p3.label.configure(image=p3.img_tk)
+    p4.label.configure(image=p4.img_tk)
+
+    win.update()
 
 # 재생 버튼 눌렀을 때
 def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, speed):
 # def drawBox(img, analysis, dID, tF, tT, curr):
     global new_idx
-
-    x, y, w, h = 0, 0, 0, 0
-    obj = None
 
     color_valid = (0, 255, 0)
     color_ex = (0, 0, 255)

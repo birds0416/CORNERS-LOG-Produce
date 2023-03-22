@@ -14,7 +14,6 @@ def getFileSize(logPath):
         size = i
     return size
 
-
 def readLog(logPath):
     logFile = open(logPath, 'rt', encoding='UTF8')
 
@@ -53,7 +52,6 @@ def readLog(logPath):
             temp = []
 
     return analysis
-
 
 # TODO
 # 1회 분석에서 시간 정보 가져오기
@@ -94,7 +92,6 @@ def isValid(analyze):
     
     return valid
     
-
 # 1회 분석에서 장비 번호 가져오기
 def getDeviceID(analyze):
 
@@ -155,9 +152,8 @@ def getBox(analyze):
     다른 function들 작동 확인 O
 '''
 
-test = ["[2023-03-21 09:42:27,094][INFO ] Detect object VALID = 11, forklift, 460, 666, 44, 140, midX : 482, bottom : 806\n",
-        "[2023-03-21 09:42:27,095][INFO ] Detect object EX 2  = 12, forklift, 572, 564, 80, 180, midX : 612, bottom : 744\n"]
-
+# test = ["[2023-03-21 09:42:27,094][INFO ] Detect object VALID = 11, forklift, 460, 666, 44, 140, midX : 482, bottom : 806\n",
+#         "[2023-03-21 09:42:27,095][INFO ] Detect object EX 2  = 12, forklift, 572, 564, 80, 180, midX : 612, bottom : 744\n"]
 # _, time = getTime(test)
 # print(len(time))
 # for t in time:
@@ -172,7 +168,6 @@ test = ["[2023-03-21 09:42:27,094][INFO ] Detect object VALID = 11, forklift, 46
 
 # box = getBox(test)
 # print(len(box))
-
 
 # import json
 # path = "./log/8333.log"

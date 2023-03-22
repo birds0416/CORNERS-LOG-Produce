@@ -211,26 +211,27 @@ def playImg(btn):
         opened = True
         imgWin.protocol('WM_DELETE_WINDOW', lambda: onclose(imgWin))
 
+    if setTimeF == False and setTimeT == True:
+        tF = "00:00:00"
+        tT = playToVal.get()
+
+    elif setTimeF == True and setTimeT == False:
+        tF = playFromVal.get()
+        tT = "23:59:59"
+
+    elif setTimeF == True and setTimeT == True:
+        tF = playFromVal.get()
+        tT = playToVal.get()
+
+    else:
+        tF = "00:00:00"
+        tT = "23:59:59"
+
+    timeF = datetime.strptime(tF, "%H:%M:%S").time()
+    timeT = datetime.strptime(tT, "%H:%M:%S").time()
+
     if btn == "btn play":
         savePathFile(imgPathList)
-        if setTimeF == False and setTimeT == True:
-            tF = "00:00:00"
-            tT = playToVal.get()
-
-        elif setTimeF == True and setTimeT == False:
-            tF = playFromVal.get()
-            tT = "23:59:59"
-
-        elif setTimeF == True and setTimeT == True:
-            tF = playFromVal.get()
-            tT = playToVal.get()
-
-        else:
-            tF = "00:00:00"
-            tT = "23:59:59"
-
-        timeF = datetime.strptime(tF, "%H:%M:%S").time()
-        timeT = datetime.strptime(tT, "%H:%M:%S").time()
         
         # 처음 재생할 때만
         if log_idx == 0:
@@ -256,17 +257,18 @@ def playImg(btn):
     # log_idx -= 1
     elif btn == "btn back":
         print("Back")
-        pass
+        prevBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
 
     # log_idx += 1
     elif btn == "btn next":
         print("Next")
-        pass
+        nextBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
 
     # 재생 중단, log_idx를 0으로 재설정
     elif btn == "btn stop":
         print("Stop")
-        pass
+        log_idx = initIdx()
+        imgWin.destroy()
 
     # 종료 버튼 누름으로 창 닫기
     elif btn == "btn finish":
@@ -289,7 +291,6 @@ def getExcept():
             pass
         else:
             pass
-
 
 if __name__ == "__main__":
 
