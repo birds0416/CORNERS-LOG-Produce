@@ -9,6 +9,12 @@ from PIL import ImageDraw as Dr
 from readExcept import *
 from readLog import *
 
+new_idx = 0
+def getIdx():
+    global new_idx
+    print("new_idx = ", new_idx)
+    return new_idx
+
 # 이전 버튼 눌렀을 때
 def prevBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
     return
@@ -20,111 +26,94 @@ def nextBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
 # 재생 버튼 눌렀을 때
 def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
 # def drawBox(img, analysis, dID, tF, tT, curr):
+    global new_idx
+
     x, y, w, h = 0, 0, 0, 0
     obj = None
-    new_idx = 0
-
-    analysis = readLog(logpath)
 
     color_valid = (0, 255, 0)
     color_ex = (0, 0, 255)
 
-    i = idx
-    j = 0
+    analysis = readLog(logpath)
 
-    while True:
-        # cv2.imshow("image" + str(dID), img)
-        new_idx = i
-        print(new_idx)
-
+    for i in range(idx, len(analysis)):
         analyze = analysis[i]
-        maxJ = len(analyze)
+        new_idx = i
 
-        eData = analyze[j]
+        for j, eData in enumerate(analyze):
 
-        img_copy_11 = p1.img.copy()
-        img_copy_12 = p2.img.copy()
-        img_copy_13 = p3.img.copy()
-        img_copy_14 = p4.img.copy()
+            img_copy_11 = p1.img.copy()
+            img_copy_12 = p2.img.copy()
+            img_copy_13 = p3.img.copy()
+            img_copy_14 = p4.img.copy()
 
-        dID11 = str(p1.deviceID)
-        dID12 = str(p2.deviceID)
-        dID13 = str(p3.deviceID)
-        dID14 = str(p4.deviceID)
+            dID11 = str(p1.deviceID)
+            dID12 = str(p2.deviceID)
+            dID13 = str(p3.deviceID)
+            dID14 = str(p4.deviceID)
 
-        _, eTime = getTime(eData)
-        x, y, w, h = getBox(eData)
-        obj = getObject(eData)
-        ID = getDeviceID(eData)
+            _, eTime = getTime(eData)
+            x, y, w, h = getBox(eData)
+            obj = getObject(eData)
+            ID = getDeviceID(eData)
 
-        if eTime > tF and eTime < tT:
-            if ID == dID11:
-                print(eData)
-                if isValid(eData):
-                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
-                else:
-                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+            if eTime > tF and eTime < tT:
+                if ID == dID11:
+                    print(eData)
+                    if isValid(eData):
+                        cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    else:
+                        cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
 
-            if ID == dID12:
-                print(eData)
-                if isValid(eData):
-                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
-                else:
-                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                if ID == dID12:
+                    print(eData)
+                    if isValid(eData):
+                        cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    else:
+                        cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
 
-            if ID == dID13:
-                print(eData)
-                if isValid(eData):
-                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
-                else:
-                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                if ID == dID13:
+                    print(eData)
+                    if isValid(eData):
+                        cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    else:
+                        cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
 
-            if ID == dID14:
-                print(eData)
-                if isValid(eData):
-                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
-                else:
-                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                if ID == dID14:
+                    print(eData)
+                    if isValid(eData):
+                        cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    else:
+                        cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
 
-            img_copy_11 = cv2.cvtColor(img_copy_11, cv2.COLOR_BGR2RGB)
-            img_copy_12 = cv2.cvtColor(img_copy_12, cv2.COLOR_BGR2RGB)
-            img_copy_13 = cv2.cvtColor(img_copy_13, cv2.COLOR_BGR2RGB)
-            img_copy_14 = cv2.cvtColor(img_copy_14, cv2.COLOR_BGR2RGB)
+                img_copy_11 = cv2.cvtColor(img_copy_11, cv2.COLOR_BGR2RGB)
+                img_copy_12 = cv2.cvtColor(img_copy_12, cv2.COLOR_BGR2RGB)
+                img_copy_13 = cv2.cvtColor(img_copy_13, cv2.COLOR_BGR2RGB)
+                img_copy_14 = cv2.cvtColor(img_copy_14, cv2.COLOR_BGR2RGB)
 
-            img_copy_11_pil = Image.fromarray(img_copy_11)
-            img_copy_12_pil = Image.fromarray(img_copy_12)
-            img_copy_13_pil = Image.fromarray(img_copy_13)
-            img_copy_14_pil = Image.fromarray(img_copy_14)
+                img_copy_11_pil = Image.fromarray(img_copy_11)
+                img_copy_12_pil = Image.fromarray(img_copy_12)
+                img_copy_13_pil = Image.fromarray(img_copy_13)
+                img_copy_14_pil = Image.fromarray(img_copy_14)
 
-            img_copy_11_tk = ImageTk.PhotoImage(img_copy_11_pil)
-            img_copy_12_tk = ImageTk.PhotoImage(img_copy_12_pil)
-            img_copy_13_tk = ImageTk.PhotoImage(img_copy_13_pil)
-            img_copy_14_tk = ImageTk.PhotoImage(img_copy_14_pil)
+                img_copy_11_tk = ImageTk.PhotoImage(img_copy_11_pil)
+                img_copy_12_tk = ImageTk.PhotoImage(img_copy_12_pil)
+                img_copy_13_tk = ImageTk.PhotoImage(img_copy_13_pil)
+                img_copy_14_tk = ImageTk.PhotoImage(img_copy_14_pil)
 
-            p1.img_tk = img_copy_11_tk
-            p2.img_tk = img_copy_12_tk
-            p3.img_tk = img_copy_13_tk
-            p4.img_tk = img_copy_14_tk
+                p1.img_tk = img_copy_11_tk
+                p2.img_tk = img_copy_12_tk
+                p3.img_tk = img_copy_13_tk
+                p4.img_tk = img_copy_14_tk
 
-            p1.label.configure(image=p1.img_tk)
-            p2.label.configure(image=p2.img_tk)
-            p3.label.configure(image=p3.img_tk)
-            p4.label.configure(image=p4.img_tk)
+                p1.label.configure(image=p1.img_tk)
+                p2.label.configure(image=p2.img_tk)
+                p3.label.configure(image=p3.img_tk)
+                p4.label.configure(image=p4.img_tk)
 
-            time.sleep(-time.time()%0.1)
+                time.sleep(-time.time()%0.1)
 
-            win.update()
-
-        if j < maxJ - 1:
-            j += 1
-        else:
-            i += 1
-            j = 0
-        
-        key = cv2.waitKey(1) & 0xFF
-        if key == ord("q"):
-            cv2.destroyAllWindows()
-            break
+                win.update()
 
 ''' drawBox Test '''
 # img1 = cv2.imread("C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/device_image/NIPA_11_20230321102221972.jpg")
