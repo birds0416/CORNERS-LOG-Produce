@@ -21,25 +21,44 @@ from PIL import ImageTk, Image
 win= Tk()
 win.title("대상WL 로그재현 Tool")
 #Set the geometry of Tkinter frame
-win.geometry("900x300")
+win.geometry("900x400")
 
 
 '''
 TODO
 * ---로그파일 불러와서 읽기
-* 재생구간 콤보박스 정보 불러와서 로그에서 그 구간의 데이터만 읽기
 * 하단 버튼 기능 전부 구현
 * ---이미지 경로 tkinter 윈도우에 4개 연속으로 띄워서 박스 그리기
 '''
 
 # 이미지 경로 저장
-imgPathList = []
-savePathName = "path.txt"
-if os.path.isfile(savePathName):
-    savePath = open(savePathName, 'r')
-    for i, path in enumerate(savePath.readlines()):
-        path = path.strip()
-        imgPathList.append(path)
+imgPathList = ["", "", "", ""]
+
+# 이미지 경로 텍스트 파일 생성
+def savePathFile(data, filename="path.txt"):
+    imgPathFile = open("path.txt", 'w')
+    for path in data:
+        path = path + "\n"
+        imgPathFile.write(path)
+    imgPathFile.close()
+
+def getPathFile(text1, text2, text3, text4, filename="path.txt"):
+    if os.path.isfile(filename):
+        savePath = open(filename, 'r')
+        for i, path in enumerate(savePath.readlines()):
+            path = path.strip()
+            if i == 0:
+                text1.insert("1.0", path)
+                imgPathList[i] = path
+            if i == 1:
+                text2.insert("1.0", path)
+                imgPathList[i] = path
+            if i == 2:
+                text3.insert("1.0", path)
+                imgPathList[i] = path
+            if i == 3:
+                text4.insert("1.0", path)
+                imgPathList[i] = path
 
 # returns is value is None or not
 def isEmpty(value):
@@ -77,24 +96,28 @@ def getImg(btn):
         print("user chose", path)
         if btn == "btn11 clicked":
             imgPath11Entry.insert("1.0", path)
-            if path not in imgPathList:
-                imgPathList.append(path)
+            # if path not in imgPathList:
+            #     imgPathList.append(path)
+            imgPathList[0] = path
 
         elif btn == "btn12 clicked":
             imgPath12Entry.insert("1.0", path)
-            if path not in imgPathList:
-                imgPathList.append(path)
+            # if path not in imgPathList:
+            #     imgPathList.append(path)
+            imgPathList[1] = path
 
         elif btn == "btn13 clicked":
             imgPath13Entry.insert("1.0", path)
-            if path not in imgPathList:
-                imgPathList.append(path)
+            # if path not in imgPathList:
+            #     imgPathList.append(path)
+            imgPathList[2] = path
 
         elif btn == "btn14 clicked":
             imgPath14Entry.insert("1.0", path)
-            if path not in imgPathList:
-                imgPathList.append(path)
-
+            # if path not in imgPathList:
+            #     imgPathList.append(path)
+            imgPathList[3] = path
+        
     else:
         print("Image Not Selected")
 
@@ -123,8 +146,8 @@ setTimeT = False
 def isTimeSet():
     global setTimeF
     global setTimeT
-    tF = playFromEntry.get("1.0", "end-1c")
-    tT = playToEntry.get("1.0", "end-1c")
+    tF = playFromVal.get()
+    tT = playToVal.get()
 
     # 둘다 설정 안했을 때 -> 처음부터 시작해서 끝까지
     if tF == "00:00:00" and tT == "23:59:59":
@@ -142,7 +165,7 @@ def isTimeSet():
         setTimeT = False
     
     # 둘다 설정했을 때 -> 설정한 시간부터 시작해서 설정한 시간까지
-    elif tF != "00:00:00" and tT != "00:00:00":
+    elif tF != "00:00:00" and tT != "23:59:59":
         setTimeF = True
         setTimeT = True
 
@@ -189,17 +212,18 @@ def playImg(btn):
         imgWin.protocol('WM_DELETE_WINDOW', lambda: onclose(imgWin))
 
     if btn == "btn play":
+        savePathFile(imgPathList)
         if setTimeF == False and setTimeT == True:
             tF = "00:00:00"
-            tT = playToEntry.get("1.0", "end-1c")
+            tT = playToVal.get()
 
         elif setTimeF == True and setTimeT == False:
-            tF = playFromEntry.get("1.0", "end-1c")
+            tF = playFromVal.get()
             tT = "23:59:59"
 
         elif setTimeF == True and setTimeT == True:
-            tF = playFromEntry.get("1.0", "end-1c")
-            tT = playToEntry.get("1.0", "end-1c")
+            tF = playFromVal.get()
+            tT = playToVal.get()
 
         else:
             tF = "00:00:00"
@@ -222,7 +246,8 @@ def playImg(btn):
             player14 = ImagePlayer(imgWin, img14path, 14, 0)
 
         getExcept()
-        drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
+        speed = float(playSpeedVal.get())
+        drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, speed)
 
     # 일시정지, log_idx 유지
     elif btn == "btn pause":
@@ -338,38 +363,30 @@ if __name__ == "__main__":
     playToEntry = Entry(contain6, width=20, textvariable = playToVal)
     playToEntry.pack(side="left", padx=(0, 3), pady=5)
 
-    ''' 버튼 모음 '''
-    contain7  = Frame(win)
+    ''' 재생속도 '''
+    contain7 = Frame(win)
     contain7.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
+    
+    playSpeed = Label(contain7, text="재생속도", font=('Arial', 10))
+    playSpeed.pack(side="left", padx=(30, 65))
+    playSpeedVal = StringVar(contain7, value="0.1")
+    playSpeedEntry = Entry(contain7, width=10, justify=CENTER, textvariable=playSpeedVal)
+    playSpeedEntry.pack(side="left", padx=(0, 3), pady=5)
+    playSpeedINFO = Label(contain7, text="(숫자가 클수록 느려짐)", font=('Arial', 10))
+    playSpeedINFO.pack(side="left", padx=10)
 
-    btn1 = Button(contain7, text="재생시작", width=15, command=lambda btn="btn play" : playImg(btn)).pack(side="left", padx=(50, 10), pady=5)
-    btn2 = Button(contain7, text="일시정지", width=15, command=lambda btn="btn pause" : playImg(btn)).pack(side="left", padx=10, pady=5)
-    btn3 = Button(contain7, text="이전", width=15, command=lambda btn="btn back" : playImg(btn)).pack(side="left", padx=10, pady=5)
-    btn4 = Button(contain7, text="이후", width=15, command=lambda btn="btn next" : playImg(btn)).pack(side="left", padx=10, pady=5)
-    btn5 = Button(contain7, text="중지", width=15, command=lambda btn="btn stop" : playImg(btn)).pack(side="left", padx=10, pady=5)
-    btn6 = Button(contain7, text="종료", width=15, command=lambda btn="btn finish" : playImg(btn)).pack(side="left", padx=10, pady=5)
+    ''' 버튼 모음 '''
+    contain8  = Frame(win)
+    contain8.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
 
+    btn1 = Button(contain8, text="재생시작", width=15, command=lambda btn="btn play" : playImg(btn)).pack(side="left", padx=(50, 10), pady=5)
+    btn2 = Button(contain8, text="일시정지", width=15, command=lambda btn="btn pause" : playImg(btn)).pack(side="left", padx=10, pady=5)
+    btn3 = Button(contain8, text="이전", width=15, command=lambda btn="btn back" : playImg(btn)).pack(side="left", padx=10, pady=5)
+    btn4 = Button(contain8, text="이후", width=15, command=lambda btn="btn next" : playImg(btn)).pack(side="left", padx=10, pady=5)
+    btn5 = Button(contain8, text="중지", width=15, command=lambda btn="btn stop" : playImg(btn)).pack(side="left", padx=10, pady=5)
+    btn6 = Button(contain8, text="종료", width=15, command=lambda btn="btn finish" : playImg(btn)).pack(side="left", padx=10, pady=5)
 
     ''' 저장된 이미지 경로 불러오기 '''
-    savePathName = "path.txt"
-    if os.path.isfile(savePathName):
-        savePath = open(savePathName, 'r')
-        for i,path in enumerate(savePath.readlines()):
-            path = path.strip()
-            if i == 0:
-                imgPath11Entry.insert("1.0", path)
-            elif i == 1:
-                imgPath12Entry.insert("1.0", path)
-            elif i == 2:
-                imgPath13Entry.insert("1.0", path)
-                imgPath12Entry.insert("1.0", path)
-            elif i == 3:
-                imgPath14Entry.insert("1.0", path)
-
-    imgPathFile = open("path.txt", 'w')
-    for path in imgPathList:
-        path = path + "\n"
-        imgPathFile.write(path)
-    imgPathFile.close()
+    getPathFile(imgPath11Entry, imgPath12Entry, imgPath13Entry, imgPath14Entry)
 
     win.mainloop()
