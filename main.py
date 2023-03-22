@@ -199,7 +199,6 @@ def playImg(btn):
             player13 = ImagePlayer(imgWin, img13path, 13, 0)
             player14 = ImagePlayer(imgWin, img14path, 14, 0)
 
-        log_idx = getIdx()
         getExcept()
         drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
 
