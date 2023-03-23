@@ -22,6 +22,7 @@ win= Tk()
 win.title("대상WL 로그재현 Tool")
 #Set the geometry of Tkinter frame
 win.geometry("900x400")
+win.protocol('WM_DELETE_WINDOW', lambda: onclose(win))
 
 
 '''
@@ -64,10 +65,10 @@ def getPathFile(text1, text2, text3, text4, filename="path.txt"):
 def isEmpty(value):
     return value == None
 
-def onclose(win):
+def onclose(root):
     global opened
     opened = False
-    win.destroy()
+    root.destroy()
 
 # 이미지 불러오기
 def getImg(btn):
@@ -181,6 +182,7 @@ player12 = None
 player13 = None
 player14 = None
 log_idx = 0
+logfilesize = 0
 
 def playImg(btn):
     global player11, player12, player13, player14
@@ -196,11 +198,13 @@ def playImg(btn):
     global img14path
     global logFile
     global log_idx
+    global logfilesize
 
     tF = None
     tT = None
     timeF = None
     timeT = None
+    restart = False
 
     log_idx = getIdx()
     isTimeSet()
@@ -210,6 +214,8 @@ def playImg(btn):
         imgWin.title("박스 표시")
         opened = True
         imgWin.protocol('WM_DELETE_WINDOW', lambda: onclose(imgWin))
+    else:
+        restart = True
 
     if setTimeF == False and setTimeT == True:
         tF = "00:00:00"
@@ -233,64 +239,87 @@ def playImg(btn):
     if btn == "btn play":
         savePathFile(imgPathList)
         
-        # 처음 재생할 때만
-        if log_idx == 0:
-            img11path = imgPath11Entry.get("1.0", "end-1c")
-            img12path = imgPath12Entry.get("1.0", "end-1c")
-            img13path = imgPath13Entry.get("1.0", "end-1c")
-            img14path = imgPath14Entry.get("1.0", "end-1c")
-            logFile = logPathEntry.get("1.0", "end-1c")
+        img11path = imgPath11Entry.get("1.0", "end-1c")
+        img12path = imgPath12Entry.get("1.0", "end-1c")
+        img13path = imgPath13Entry.get("1.0", "end-1c")
+        img14path = imgPath14Entry.get("1.0", "end-1c")
+        logFile = logPathEntry.get("1.0", "end-1c")
 
-            player11 = ImagePlayer(imgWin, img11path, 11, 0)
-            player12 = ImagePlayer(imgWin, img12path, 12, 0)
-            player13 = ImagePlayer(imgWin, img13path, 13, 0)
-            player14 = ImagePlayer(imgWin, img14path, 14, 0)
-
-        getExcept()
         speed = float(playSpeedVal.get())
-        drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, speed)
+        logfilesize = len(readLog(logFile))
+
+        # 종료가 아닐 때
+        if getFinish() == False:
+            # 정지가 아닐 때 이미지 새로 생성 금지
+            if getPause() == False:
+                player11 = ImagePlayer(imgWin, img11path, 11, 0)
+                player12 = ImagePlayer(imgWin, img12path, 12, 0)
+                player13 = ImagePlayer(imgWin, img13path, 13, 0)
+                player14 = ImagePlayer(imgWin, img14path, 14, 0)
+            drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, speed)
+        # 종료 후 다시 시작할 때
+        else:
+            setFinish(False)
+            setPause(False)
+            showExcept.set(0)
+            if not restart:
+                player11 = ImagePlayer(imgWin, img11path, 11, 0)
+                player12 = ImagePlayer(imgWin, img12path, 12, 0)
+                player13 = ImagePlayer(imgWin, img13path, 13, 0)
+                player14 = ImagePlayer(imgWin, img14path, 14, 0)
+            drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, speed)
 
     # 일시정지, log_idx 유지
     elif btn == "btn pause":
+        setFinish(False)
+        setPause(True)
         print("Paused")
 
     # log_idx -= 1
     elif btn == "btn back":
         print("Back")
-        prevBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
+        if log_idx - 1 < 0:
+            messagebox.showwarning(title="Beginning of Log File", message="BEGINNING OF LOG FILE: 로그의 처음입니다.")
+        else:
+            prevBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
 
     # log_idx += 1
     elif btn == "btn next":
         print("Next")
-        nextBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
+        if log_idx + 1 >= logfilesize:
+            messagebox.showwarning(title="End of Log File", message="END OF LOG FILE: 로그의 끝입니다.")
+        else:
+            nextBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
 
     # 재생 중단, log_idx를 0으로 재설정
     elif btn == "btn stop":
         print("Stop")
-        log_idx = initIdx()
+        setFinish(True)
+        setPause(False)
+        opened = False
+        showExcept.set(0)
         imgWin.destroy()
 
     # 종료 버튼 누름으로 창 닫기
     elif btn == "btn finish":
         print("Finish")
-        opened = False
-        imgWin.destroy()
         win.destroy()
     
     imgWin.mainloop()
 
 def getExcept():
-    global opened
-    if opened:
-        if showExcept.get() == 1:
-            pass
-        else:
-            pass
+    global player11, player12, player13, player14
+    global imgWin
+    if showExcept.get() == 1:
+        print("예외구역 ON")
+        print("showExcept = ", showExcept.get())
+        setIsExcept(True)
+        drawExcept(imgWin, player11, player12, player13, player14, showExcept.get())
     else:
-        if showExcept.get() == 1:
-            pass
-        else:
-            pass
+        print("예외구역 OFF")
+        print("showExcept = ", showExcept.get())
+        setIsExcept(False)
+        drawExcept(imgWin, player11, player12, player13, player14, showExcept.get())
 
 if __name__ == "__main__":
 
@@ -370,10 +399,10 @@ if __name__ == "__main__":
     
     playSpeed = Label(contain7, text="재생속도", font=('Arial', 10))
     playSpeed.pack(side="left", padx=(30, 65))
-    playSpeedVal = StringVar(contain7, value="0.1")
+    playSpeedVal = StringVar(contain7, value="10")
     playSpeedEntry = Entry(contain7, width=10, justify=CENTER, textvariable=playSpeedVal)
     playSpeedEntry.pack(side="left", padx=(0, 3), pady=5)
-    playSpeedINFO = Label(contain7, text="(숫자가 클수록 느려짐)", font=('Arial', 10))
+    playSpeedINFO = Label(contain7, text="(1 - 100 사이의 숫자, 숫자가 클수록 느림)", font=('Arial', 10))
     playSpeedINFO.pack(side="left", padx=10)
 
     ''' 버튼 모음 '''

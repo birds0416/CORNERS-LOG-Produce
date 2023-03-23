@@ -5,10 +5,9 @@ with open(jsonPath, 'r') as rf:
     region = json.load(rf)
 
 def getRegion(deviceID, f=region):
-    dID = str(deviceID)
     coord = ""
     for item in f:
-        if dID in item:
+        if deviceID in item:
             if "all" in item:
                 coord = f[item]
             else:

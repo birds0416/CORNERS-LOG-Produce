@@ -151,7 +151,6 @@ def getBox(analyze):
     Analysis 리스트에 잘 들어가는 거 확인 O
     다른 function들 작동 확인 O
 '''
-
 # test = ["[2023-03-21 09:42:27,094][INFO ] Detect object VALID = 11, forklift, 460, 666, 44, 140, midX : 482, bottom : 806\n",
 #         "[2023-03-21 09:42:27,095][INFO ] Detect object EX 2  = 12, forklift, 572, 564, 80, 180, midX : 612, bottom : 744\n"]
 # _, time = getTime(test)
