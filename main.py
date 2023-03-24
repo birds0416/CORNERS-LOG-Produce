@@ -45,7 +45,7 @@ def savePathFile(data, filename="path.txt"):
 
 def getPathFile(text1, text2, text3, text4, filename="path.txt"):
     if os.path.isfile(filename):
-        savePath = open(filename, 'r')
+        savePath = open(filename, 'r', encoding='UTF8')
         for i, path in enumerate(savePath.readlines()):
             path = path.strip()
             if i == 0:
@@ -127,7 +127,7 @@ def getLog():
     path = askopenfilename(
         title="파일 선택",
         filetypes =(
-            ("Log files (*.log)", ("*.log")),
+            ("Log files (*.log, *txt)", ("*.log", "*.txt")),
             ("all files (*.*)","*.*")
         )
     )
@@ -261,6 +261,7 @@ def playImg(btn):
         else:
             setFinish(False)
             setPause(False)
+            log_idx = initIdx()
             showExcept.set(0)
             if not restart:
                 player11 = ImagePlayer(imgWin, img11path, 11, 0)
@@ -296,6 +297,7 @@ def playImg(btn):
         print("Stop")
         setFinish(True)
         setPause(False)
+        log_idx = initIdx()
         opened = False
         showExcept.set(0)
         imgWin.destroy()

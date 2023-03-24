@@ -33,9 +33,9 @@ def getPause():
 def setFinish(val):
     global isFinish
     isFinish = val
-    if isFinish == True:
-        initIdx()
-        setPause(False)
+    # if isFinish == True:
+    #     initIdx()
+    #     setPause(False)
     return isFinish
 
 def getFinish():
@@ -411,7 +411,8 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, speed):
     messagebox.showinfo(title="End of Log File", message="END OF LOG FILE: 로그 재생이 끝났습니다.")
     print("Log Finished")
     isFinish = True
-    setFinish(isFinish)
+    setPause(False)
+    # setFinish(isFinish)
 
 # dID11, dID12, dID13, dID14는 str
 isExcept = False
