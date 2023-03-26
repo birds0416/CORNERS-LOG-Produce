@@ -10,6 +10,15 @@ from readLog import *
 from readExcept import *
 from drawBox import *
 
+def imread(filename, flags=cv2.IMREAD_COLOR, dtype=np.uint8):
+    try:
+        n = np.fromfile(filename, dtype)
+        img = cv2.imdecode(n, flags)
+        return img
+    except Exception as e:
+        print(e)
+        return None
+
 class ImagePlayer:
     def __init__(self, win, imgPath, deviceID, idx):
         self.win = win
@@ -29,7 +38,7 @@ class ImagePlayer:
         self.label = Label(self.contain1)
         self.label.pack(side="left", padx=10)
 
-        self.img = cv2.imread(self.imgPath)
+        self.img = imread(self.imgPath)
         self.img = cv2.resize(self.img, (360, 640))
 
         self.img_pil = Image.fromarray(cv2.cvtColor(self.img, cv2.COLOR_BGR2RGB))

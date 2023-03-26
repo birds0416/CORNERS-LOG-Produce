@@ -33,9 +33,6 @@ def getPause():
 def setFinish(val):
     global isFinish
     isFinish = val
-    # if isFinish == True:
-    #     initIdx()
-    #     setPause(False)
     return isFinish
 
 def getFinish():
@@ -412,7 +409,6 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, speed):
     print("Log Finished")
     isFinish = True
     setPause(False)
-    # setFinish(isFinish)
 
 # dID11, dID12, dID13, dID14는 str
 isExcept = False
@@ -478,38 +474,18 @@ def drawExcept(win, p1, p2, p3, p4, isShow):
 
         for d in drawData11:
             ''' 예외구역 박스에 투명한 색 채워넣기 '''
-            # alpha_channel11 = np.zeros(img_copy_11_except.shape[:2], dtype=np.uint8)
-            # cv2.fillPoly(alpha_channel11, [np.int32(d)], 255)
-            # img_copy_11_except = cv2.merge(img_copy_11_except, alpha_channel11)
-            # cv2.polylines(img_copy_11_except, np.int32([d]), True, color_ex, 2)
-            # img_copy_11_except = img_copy_11_except[:, :, :3]
             cv2.polylines(img_copy_11_except, np.int32([d]), True, color_ex, 2)
 
         for d in drawData12:
             ''' 예외구역 박스에 투명한 색 채워넣기 '''
-            # alpha_channel12 = np.zeros(img_copy_12_except.shape[:2], dtype=np.uint8)
-            # cv2.fillPoly(alpha_channel12, [np.int32(d)], 255)
-            # img_copy_12_except = cv2.merge(img_copy_12_except, alpha_channel12)
-            # cv2.polylines(img_copy_12_except, np.int32([d]), True, color_ex, 2)
-            # img_copy_12_except = img_copy_12_except[:, :, :3]
             cv2.polylines(img_copy_12_except, np.int32([d]), True, color_ex, 2)
 
         for d in drawData13:
             ''' 예외구역 박스에 투명한 색 채워넣기 '''
-            # alpha_channel13 = np.zeros(img_copy_13_except.shape[:2], dtype=np.uint8)
-            # cv2.fillPoly(alpha_channel13, [np.int32(d)], 255)
-            # img_copy_13_except = cv2.merge(img_copy_13_except, alpha_channel13)
-            # cv2.polylines(img_copy_13_except, np.int32([d]), True, color_ex, 2)
-            # img_copy_13_except = img_copy_13_except[:, :, :3]
             cv2.polylines(img_copy_13_except, np.int32([d]), True, color_ex, 2)
 
         for d in drawData14:
             ''' 예외구역 박스에 투명한 색 채워넣기 '''
-            # alpha_channel14 = np.zeros(img_copy_14_except.shape[:2], dtype=np.uint8)
-            # cv2.fillPoly(alpha_channel14, [np.int32(d)], 255)
-            # img_copy_14_except = cv2.merge(img_copy_14_except, alpha_channel14)
-            # cv2.polylines(img_copy_14_except, np.int32([d]), True, color_ex, 2)
-            # img_copy_14_except = img_copy_14_except[:, :, :3]
             cv2.polylines(img_copy_14_except, np.int32([d]), True, color_ex, 2)
     
     if isShow == 1:
