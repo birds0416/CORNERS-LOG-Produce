@@ -5,8 +5,8 @@ Windows CMD 창에서 실행
 
 ```shell
 cd "설치하고자 하는 경로"
-git clone git_lab 경로
-cd pythontools/대상WL\ 예외구역설정\ Tool/
+git clone http://corners.iptime.org:30000/corners_dev_grp1/machine-learning/test-applications/python-applications/pythontools.git
+cd pythontools/대상WL\ 로그재현\ Tool/
 pip install -r requirements.txt
 python main.py
 ```
@@ -15,7 +15,7 @@ python main.py
 
 <img src="program_capture.png">
 ---
-<!-- <img src="program_capture2.png"> 이미지 띄웠을 때 화면 캡쳐 -->
+<img src="program_capture2.png"> 이미지 띄웠을 때 화면 캡쳐
 
 ---
 
