@@ -37,7 +37,7 @@ imgPathList = ["", "", "", ""]
 
 # 이미지 경로 텍스트 파일 생성
 def savePathFile(data, filename="path.txt"):
-    imgPathFile = open("path.txt", 'w')
+    imgPathFile = open("path.txt", 'w', encoding='utf8')
     for path in data:
         path = path + "\n"
         imgPathFile.write(path)
@@ -45,7 +45,7 @@ def savePathFile(data, filename="path.txt"):
 
 def getPathFile(text1, text2, text3, text4, filename="path.txt"):
     if os.path.isfile(filename):
-        savePath = open(filename, 'r', encoding='UTF8')
+        savePath = open(filename, 'r', encoding='utf8')
         for i, path in enumerate(savePath.readlines()):
             path = path.strip()
             if i == 0:
@@ -279,6 +279,8 @@ def playImg(btn):
     # log_idx -= 1
     elif btn == "btn back":
         print("Back")
+        setFinish(False)
+        setPause(True)
         if log_idx - 1 < 0:
             messagebox.showwarning(title="Beginning of Log File", message="BEGINNING OF LOG FILE: 로그의 처음입니다.")
         else:
@@ -287,6 +289,8 @@ def playImg(btn):
     # log_idx += 1
     elif btn == "btn next":
         print("Next")
+        setFinish(False)
+        setPause(True)
         if log_idx + 1 >= logfilesize:
             messagebox.showwarning(title="End of Log File", message="END OF LOG FILE: 로그의 끝입니다.")
         else:
