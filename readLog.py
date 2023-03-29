@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime
+from tkinter import messagebox
 
 '''
     analysis 리스트안에는 분석 1회에 대한 정보가 들어있음
@@ -7,49 +8,98 @@ from datetime import datetime
 '''
 
 def getFileSize(logPath):
-    logFile = open(logPath, 'rt', encoding='UTF8')
     size = 0
+    try:
+        logFile = open(logPath, 'rt', encoding='cp949')
+        for i, line in enumerate(logFile):
+            size = i
+            
+    except UnicodeDecodeError:
+        try:
+            logFile = open(logPath, 'rt', encoding='UTF8')
+            for i, line in enumerate(logFile):
+                size = i
+                
+        except UnicodeDecodeError:
+            # If the file is not encoded in utf-8 either, handle the error
+            messagebox.showerror(title="File Format Not Supported", message=f'Error: {logPath} 가 cp949 or utf-8 형식으로 인코딩되어야 합니다.')
+            print(f'Error: {logPath} is not encoded in cp949 or utf-8.')
 
-    for i, line in enumerate(logFile):
-        size = i
     return size
 
 def readLog(logPath):
-    logFile = open(logPath, 'rt', encoding='UTF8')
-
     analysis = []
     temp = []
     isAnalyze = False
     filesize = getFileSize(logPath)
 
-    for idx, line in enumerate(logFile):
-        if line[33:54] == "=== START ANALIZE ===":
-            isAnalyze = True
-            # 1회 분석을 기준으로 리스트 업데이트
-            if temp != []:
+    try:
+        logFile = open(logPath, 'rt', encoding='cp949')
+        for idx, line in enumerate(logFile):
+            if line[33:54] == "=== START ANALIZE ===":
+                isAnalyze = True
+                # 1회 분석을 기준으로 리스트 업데이트
+                if temp != []:
+                    analysis.append(temp)
+                    temp = []
+                # temp.append(line)
+
+            else:
+                isAnalyze = False
+
+            info = line[33:].split(",")
+            new_info = []
+            for i in info:
+                new_info.append(i.strip())
+            
+            if isAnalyze == False and idx != 0:
+                # DEBUG 메시지 제외
+                if line[25:32] == "[DEBUG]":
+                    pass
+                if new_info[0].startswith("Detect object"):
+                    temp.append(line)
+                # 이벤트 발생 메시지 제외
+
+            if idx == filesize:
                 analysis.append(temp)
                 temp = []
-            # temp.append(line)
+            
+    except UnicodeDecodeError:
+        try:
+            logFile = open(logPath, 'rt', encoding='UTF8')
+            for idx, line in enumerate(logFile):
+                if line[33:54] == "=== START ANALIZE ===":
+                    isAnalyze = True
+                    # 1회 분석을 기준으로 리스트 업데이트
+                    if temp != []:
+                        analysis.append(temp)
+                        temp = []
+                    # temp.append(line)
 
-        else:
-            isAnalyze = False
+                else:
+                    isAnalyze = False
 
-        info = line[33:].split(",")
-        new_info = []
-        for i in info:
-            new_info.append(i.strip())
-        
-        if isAnalyze == False and idx != 0:
-            # DEBUG 메시지 제외
-            if line[25:32] == "[DEBUG]":
-                pass
-            if new_info[0].startswith("Detect object"):
-                temp.append(line)
-            # 이벤트 발생 메시지 제외
+                info = line[33:].split(",")
+                new_info = []
+                for i in info:
+                    new_info.append(i.strip())
+                
+                if isAnalyze == False and idx != 0:
+                    # DEBUG 메시지 제외
+                    if line[25:32] == "[DEBUG]":
+                        pass
+                    if new_info[0].startswith("Detect object"):
+                        temp.append(line)
+                    # 이벤트 발생 메시지 제외
 
-        if idx == filesize:
-            analysis.append(temp)
-            temp = []
+                if idx == filesize:
+                    analysis.append(temp)
+                    temp = []
+                
+        except UnicodeDecodeError:
+            # If the file is not encoded in utf-8 either, handle the error
+            messagebox.showerror(title="File Format Not Supported", message=f'Error: {logPath} 가 cp949 or utf-8 형식으로 인코딩되어야 합니다.')
+            print(f'Error: {logPath} is not encoded in cp949 or utf-8.')
 
     return analysis
 
@@ -169,21 +219,19 @@ def getBox(analyze):
 # print(len(box))
 
 # import json
-# path = "./log/8333.log"
+# path = "./log/DetectManager20230328.log"
 # analysis = readLog(path)
-# print(analysis)
 
 # for item in analysis:
-#     print(item)
-#     for i in range(len(item)):
-#         iDate, iTime = getTime(item[i])
-#         print("Analyze Date: ", iDate)
-#         print("Analyze Time: ", iTime)
-#         print("Is Valid: ", isValid(item[i]))
-#         print("Device ID: ", getDeviceID(item[i]))
-#         print("Detect Object: ", getObject(item[i]))
-#         print("X, Y, W, H: ", getBox(item[i]))
-#         print("\n")
+    # print(item)
+    # iDate, iTime = getTime(item)
+    # print("Analyze Date: ", iDate)
+    # print("Analyze Time: ", iTime)
+    # print("Is Valid: ", isValid(item))
+    # print("Device ID: ", getDeviceID(item))
+    # print("Detect Object: ", getObject(item))
+    # print("X, Y, W, H: ", getBox(item))
+    # print("\n")
 
 # newJson = {"Analysis Test":[]}
 # json_obj = json.dumps(newJson, indent=4)

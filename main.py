@@ -246,7 +246,7 @@ def playImg(btn):
         logFile = logPathEntry.get("1.0", "end-1c")
 
         speed = float(playSpeedVal.get())
-        logfilesize = len(readLog(logFile))
+        logfilesize = getFileSize(logFile)
 
         # 종료가 아닐 때
         if getFinish() == False:
