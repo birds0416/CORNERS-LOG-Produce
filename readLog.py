@@ -9,17 +9,20 @@ from tkinter import messagebox
 
 def getFileSize(logPath):
     size = 0
+
     try:
         logFile = open(logPath, 'rt', encoding='cp949')
-        for i, line in enumerate(logFile):
-            size = i
+        for idx, line in enumerate(logFile):
+            if line[33:54] == "=== START ANALIZE ===":
+                size += 1
             
     except UnicodeDecodeError:
         try:
             logFile = open(logPath, 'rt', encoding='UTF8')
-            for i, line in enumerate(logFile):
-                size = i
-                
+            for idx, line in enumerate(logFile):
+                if line[33:54] == "=== START ANALIZE ===":
+                    size += 1
+
         except UnicodeDecodeError:
             # If the file is not encoded in utf-8 either, handle the error
             messagebox.showerror(title="File Format Not Supported", message=f'Error: {logPath} 가 cp949 or utf-8 형식으로 인코딩되어야 합니다.')
@@ -56,7 +59,7 @@ def readLog(logPath):
                 # DEBUG 메시지 제외
                 if line[25:32] == "[DEBUG]":
                     pass
-                if new_info[0].startswith("Detect object"):
+                if new_info[0].startswith("Detect object VALID") or new_info[0].startswith("Detect object EX"):
                     temp.append(line)
                 # 이벤트 발생 메시지 제외
 
@@ -88,7 +91,7 @@ def readLog(logPath):
                     # DEBUG 메시지 제외
                     if line[25:32] == "[DEBUG]":
                         pass
-                    if new_info[0].startswith("Detect object"):
+                    if new_info[0].startswith("Detect object VALID") or new_info[0].startswith("Detect object EX"):
                         temp.append(line)
                     # 이벤트 발생 메시지 제외
 
@@ -201,6 +204,8 @@ def getBox(analyze):
     Analysis 리스트에 잘 들어가는 거 확인 O
     다른 function들 작동 확인 O
 '''
+# path = "C:/Users/USER/Desktop/LSTool/LogDIsplay/log/9144.txt"
+# print(getFileSize(path))
 # test = ["[2023-03-21 09:42:27,094][INFO ] Detect object VALID = 11, forklift, 460, 666, 44, 140, midX : 482, bottom : 806\n",
 #         "[2023-03-21 09:42:27,095][INFO ] Detect object EX 2  = 12, forklift, 572, 564, 80, 180, midX : 612, bottom : 744\n"]
 # _, time = getTime(test)
