@@ -66,6 +66,9 @@ def readLog(logPath):
             if idx == filesize:
                 analysis.append(temp)
                 temp = []
+
+        analysis.append(temp)
+        temp = []
             
     except UnicodeDecodeError:
         try:
@@ -98,6 +101,9 @@ def readLog(logPath):
                 if idx == filesize:
                     analysis.append(temp)
                     temp = []
+
+            analysis.append(temp)
+            temp = []
                 
         except UnicodeDecodeError:
             # If the file is not encoded in utf-8 either, handle the error
@@ -204,31 +210,17 @@ def getBox(analyze):
     Analysis 리스트에 잘 들어가는 거 확인 O
     다른 function들 작동 확인 O
 '''
-# path = "C:/Users/USER/Desktop/LSTool/LogDIsplay/log/9144.txt"
+# path = "./log/9290.txt"
 # print(getFileSize(path))
-# test = ["[2023-03-21 09:42:27,094][INFO ] Detect object VALID = 11, forklift, 460, 666, 44, 140, midX : 482, bottom : 806\n",
-#         "[2023-03-21 09:42:27,095][INFO ] Detect object EX 2  = 12, forklift, 572, 564, 80, 180, midX : 612, bottom : 744\n"]
-# _, time = getTime(test)
-# print(len(time))
-# for t in time:
-#     print(t)
-# val = isValid(test)
-# print(val)
-# did = getDeviceID(test)
-# print(len(did))
-
-# obj = getObject(test)
-# print(len(obj))
-
-# box = getBox(test)
-# print(len(box))
 
 # import json
 # path = "./log/DetectManager20230328.log"
 # analysis = readLog(path)
 
-# for item in analysis:
-    # print(item)
+# for idx, item in enumerate(analysis):
+#     print(idx)
+#     for i in item:
+#         print(i)
     # iDate, iTime = getTime(item)
     # print("Analyze Date: ", iDate)
     # print("Analyze Time: ", iTime)
