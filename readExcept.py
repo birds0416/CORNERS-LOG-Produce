@@ -8,10 +8,7 @@ def getRegion(deviceID, f=region):
     coord = ""
     for item in f:
         if deviceID in item:
-            if "all" in item:
-                coord = f[item]
-            else:
-                coord = f[item]
+            coord = f[item]
     return coord
 
 def pnt2draw(coord):

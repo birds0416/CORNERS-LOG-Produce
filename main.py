@@ -291,7 +291,9 @@ def playImg(btn):
         print("Next")
         setFinish(False)
         setPause(True)
-        if log_idx + 1 >= logfilesize:
+        print("log_idx: ", log_idx)
+        print("logfilesize: ", logfilesize)
+        if log_idx + 1 > logfilesize:
             messagebox.showwarning(title="End of Log File", message="END OF LOG FILE: 로그의 끝입니다.")
         else:
             nextBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)

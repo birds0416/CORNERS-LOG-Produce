@@ -9,19 +9,69 @@ from tkinter import messagebox
 
 def getFileSize(logPath):
     size = 0
-
+    analysis = []
+    temp = []
+    isAnalyze = False
     try:
         logFile = open(logPath, 'rt', encoding='cp949')
         for idx, line in enumerate(logFile):
             if line[33:54] == "=== START ANALIZE ===":
-                size += 1
+                isAnalyze = True
+                # 1회 분석을 기준으로 리스트 업데이트
+                if temp != []:
+                    size += 1
+                    analysis.append(temp)
+                    temp = []
+            
+            else:
+                isAnalyze = False
+            
+            info = line[33:].split(",")
+            new_info = []
+            for i in info:
+                new_info.append(i.strip())
+            
+            if isAnalyze == False and idx != 0:
+                # DEBUG 메시지 제외
+                if line[25:32] == "[DEBUG]":
+                    pass
+                if new_info[0].startswith("Detect object VALID") or new_info[0].startswith("Detect object EX"):
+                    temp.append(line)
+                # 이벤트 발생 메시지 제외
+
+        analysis.append(temp)
+        temp = []
             
     except UnicodeDecodeError:
         try:
             logFile = open(logPath, 'rt', encoding='UTF8')
             for idx, line in enumerate(logFile):
                 if line[33:54] == "=== START ANALIZE ===":
-                    size += 1
+                    isAnalyze = True
+                    # 1회 분석을 기준으로 리스트 업데이트
+                    if temp != []:
+                        size += 1
+                        analysis.append(temp)
+                        temp = []
+                
+                else:
+                    isAnalyze = False
+                
+                info = line[33:].split(",")
+                new_info = []
+                for i in info:
+                    new_info.append(i.strip())
+                
+                if isAnalyze == False and idx != 0:
+                    # DEBUG 메시지 제외
+                    if line[25:32] == "[DEBUG]":
+                        pass
+                    if new_info[0].startswith("Detect object VALID") or new_info[0].startswith("Detect object EX"):
+                        temp.append(line)
+                    # 이벤트 발생 메시지 제외
+
+            analysis.append(temp)
+            temp = []
 
         except UnicodeDecodeError:
             # If the file is not encoded in utf-8 either, handle the error
@@ -63,10 +113,6 @@ def readLog(logPath):
                     temp.append(line)
                 # 이벤트 발생 메시지 제외
 
-            if idx == filesize:
-                analysis.append(temp)
-                temp = []
-
         analysis.append(temp)
         temp = []
             
@@ -97,10 +143,6 @@ def readLog(logPath):
                     if new_info[0].startswith("Detect object VALID") or new_info[0].startswith("Detect object EX"):
                         temp.append(line)
                     # 이벤트 발생 메시지 제외
-
-                if idx == filesize:
-                    analysis.append(temp)
-                    temp = []
 
             analysis.append(temp)
             temp = []
