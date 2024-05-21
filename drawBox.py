@@ -40,7 +40,7 @@ def getFinish():
     return isFinish
 
 # 이전 버튼 눌렀을 때
-def prevBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
+def prevBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, img_scale, evtNum):
     global new_idx
     global img_copy_11_except, img_copy_12_except, img_copy_13_except, img_copy_14_except
     global img_copy_11_draw, img_copy_12_draw, img_copy_13_draw, img_copy_14_draw
@@ -51,7 +51,14 @@ def prevBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
     color_valid = (0, 255, 0)
     color_ex = (0, 0, 255)
 
-    analysis = readLog(logpath)
+    # analysis = readLog(logpath)
+    all_lines, evt_lines = readLog(logpath)
+    analysis = []
+    for i, evt_num in evt_lines:
+        if evt_num == evtNum:
+            lines = getPreviousLines(all_lines, i, 200)
+            # print("Lines around event: ", evt_num_to_find)
+            analysis = getAnalysis(lines)
 
     analyze = analysis[idx - 1]
     new_idx = idx - 1
@@ -90,38 +97,38 @@ def prevBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
             if dID[j] == dID11:
                 print(analyze[j])
                 if valid[j] == "VALID":
-                    cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    cv2.putText(img_copy_11, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_11, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                 if valid[j] == "EX":
-                    cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                    cv2.putText(img_copy_11, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_11, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
             if dID[j] == dID12:
                 print(analyze[j])
                 if valid[j] == "VALID":
-                    cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    cv2.putText(img_copy_12, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_12, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                 if valid[j] == "EX":
-                    cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                    cv2.putText(img_copy_12, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_12, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
             if dID[j] == dID13:
                 print(analyze[j])
                 if valid[j] == "VALID":
-                    cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    cv2.putText(img_copy_13, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_13, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                 if valid[j] == "EX":
-                    cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                    cv2.putText(img_copy_13, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_13, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
             if dID[j] == dID14:
                 print(analyze[j])
                 if valid[j] == "VALID":
-                    cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    cv2.putText(img_copy_14, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_14, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                 if valid[j] == "EX":
-                    cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                    cv2.putText(img_copy_14, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_14, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
     
     img_copy_11 = cv2.cvtColor(img_copy_11, cv2.COLOR_BGR2RGB)
     img_copy_12 = cv2.cvtColor(img_copy_12, cv2.COLOR_BGR2RGB)
@@ -151,7 +158,7 @@ def prevBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
     win.update()
 
 # 이후 버튼 눌렀을 때
-def nextBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
+def nextBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, img_scale, evtNum):
     global new_idx
     global img_copy_11_except, img_copy_12_except, img_copy_13_except, img_copy_14_except
     global img_copy_11_draw, img_copy_12_draw, img_copy_13_draw, img_copy_14_draw
@@ -162,7 +169,13 @@ def nextBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
     color_valid = (0, 255, 0)
     color_ex = (0, 0, 255)
 
-    analysis = readLog(logpath)
+    all_lines, evt_lines = readLog(logpath)
+    analysis = []
+    for i, evt_num in evt_lines:
+        if evt_num == evtNum:
+            lines = getPreviousLines(all_lines, i, 200)
+            # print("Lines around event: ", evt_num_to_find)
+            analysis = getAnalysis(lines)
 
     analyze = analysis[idx + 1]
     new_idx = idx + 1
@@ -201,38 +214,38 @@ def nextBox(win, p1, p2, p3, p4, logpath, tF, tT, idx):
             if dID[j] == dID11:
                 print(analyze[j])
                 if valid[j] == "VALID":
-                    cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    cv2.putText(img_copy_11, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_11, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                 if valid[j] == "EX":
-                    cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                    cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                    cv2.putText(img_copy_11, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_11, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
             if dID[j] == dID12:
                 print(analyze[j])
                 if valid[j] == "VALID":
-                    cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    cv2.putText(img_copy_12, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_12, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                 if valid[j] == "EX":
-                    cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                    cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                    cv2.putText(img_copy_12, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_12, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
             if dID[j] == dID13:
                 print(analyze[j])
                 if valid[j] == "VALID":
-                    cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    cv2.putText(img_copy_13, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_13, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                 if valid[j] == "EX":
-                    cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                    cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                    cv2.putText(img_copy_13, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_13, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
             if dID[j] == dID14:
                 print(analyze[j])
                 if valid[j] == "VALID":
-                    cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                    cv2.putText(img_copy_14, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                    cv2.rectangle(img_copy_14, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                 if valid[j] == "EX":
-                    cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                    cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                    cv2.putText(img_copy_14, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                    cv2.rectangle(img_copy_14, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
     
     img_copy_11 = cv2.cvtColor(img_copy_11, cv2.COLOR_BGR2RGB)
     img_copy_12 = cv2.cvtColor(img_copy_12, cv2.COLOR_BGR2RGB)
@@ -272,7 +285,7 @@ img_copy_13_draw = None
 img_copy_14_draw = None
 isFinish = False
 isPause = False
-def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, speed):
+def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, speed, img_scale, evtNum):
     global new_idx
     global img_copy_11_except, img_copy_12_except, img_copy_13_except, img_copy_14_except
     global img_copy_11_draw, img_copy_12_draw, img_copy_13_draw, img_copy_14_draw
@@ -283,12 +296,19 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, speed):
     color_valid = (0, 255, 0)
     color_ex = (0, 0, 255)
 
-    analysis = readLog(logpath)
+    all_lines, evt_lines = readLog(logpath)
+    analysis = []
+    for i, evt_num in evt_lines:
+        if evt_num == evtNum:
+            lines = getPreviousLines(all_lines, i, 200)
+            # print("Lines around event: ", evt_num_to_find)
+            analysis = getAnalysis(lines)
 
     img_copy_11 = p1.img.copy()
     img_copy_12 = p2.img.copy()
     img_copy_13 = p3.img.copy()
     img_copy_14 = p4.img.copy()
+    
 
     if getPause():
         setPause(False)
@@ -298,6 +318,7 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, speed):
         img_copy_13_except = p3.img.copy()
         img_copy_14_except = p4.img.copy()
 
+    print("Here4")
     img_copy_11_draw = p1.img.copy()
     img_copy_12_draw = p2.img.copy()
     img_copy_13_draw = p3.img.copy()
@@ -343,38 +364,38 @@ def drawBox(win, p1, p2, p3, p4, logpath, tF, tT, idx, speed):
                 if dID[j] == dID11:
                     print(analyze[j])
                     if valid[j] == "VALID":
-                        cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                        cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                        cv2.putText(img_copy_11, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                        cv2.rectangle(img_copy_11, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                     if valid[j] == "EX":
-                        cv2.putText(img_copy_11, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                        cv2.rectangle(img_copy_11, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                        cv2.putText(img_copy_11, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                        cv2.rectangle(img_copy_11, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
                 if dID[j] == dID12:
                     print(analyze[j])
                     if valid[j] == "VALID":
-                        cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                        cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                        cv2.putText(img_copy_12, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                        cv2.rectangle(img_copy_12, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                     if valid[j] == "EX":
-                        cv2.putText(img_copy_12, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                        cv2.rectangle(img_copy_12, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                        cv2.putText(img_copy_12, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                        cv2.rectangle(img_copy_12, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
                 if dID[j] == dID13:
                     print(analyze[j])
                     if valid[j] == "VALID":
-                        cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                        cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                        cv2.putText(img_copy_13, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                        cv2.rectangle(img_copy_13, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                     if valid[j] == "EX":
-                        cv2.putText(img_copy_13, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                        cv2.rectangle(img_copy_13, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                        cv2.putText(img_copy_13, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                        cv2.rectangle(img_copy_13, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
                 if dID[j] == dID14:
                     print(analyze[j])
                     if valid[j] == "VALID":
-                        cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
-                        cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_valid, 2)
+                        cv2.putText(img_copy_14, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_valid, 2)
+                        cv2.rectangle(img_copy_14, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_valid, 2)
                     if valid[j] == "EX":
-                        cv2.putText(img_copy_14, obj[j], (x // 3, y // 3), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
-                        cv2.rectangle(img_copy_14, (x // 3, y // 3), ((x + w) // 3, (y + h) // 3), color_ex, 2)
+                        cv2.putText(img_copy_14, obj[j], (x // img_scale, y // img_scale), cv2.FONT_HERSHEY_COMPLEX, 0.7, color_ex, 2)
+                        cv2.rectangle(img_copy_14, (x // img_scale, y // img_scale), ((x + w) // img_scale, (y + h) // img_scale), color_ex, 2)
 
         img_copy_11 = cv2.cvtColor(img_copy_11, cv2.COLOR_BGR2RGB)
         img_copy_12 = cv2.cvtColor(img_copy_12, cv2.COLOR_BGR2RGB)
@@ -421,7 +442,7 @@ def getIsExcept():
     global isExcept
     return isExcept
 
-def drawExcept(win, p1, p2, p3, p4, isShow):
+def drawExcept(win, p1, p2, p3, p4, isShow, img_scale):
     color_ex = (255, 255, 0, 128)
     global img_copy_11_except, img_copy_12_except, img_copy_13_except, img_copy_14_except
     global img_copy_11_draw, img_copy_12_draw, img_copy_13_draw, img_copy_14_draw
@@ -451,25 +472,25 @@ def drawExcept(win, p1, p2, p3, p4, isShow):
         for shape in pnt_datas11:
             t = []
             for pnt in shape:
-                t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
+                t.append([int(pnt[0] / img_scale), int(pnt[1] / img_scale)])
             drawData11.append(t)
 
         for shape in pnt_datas12:
             t = []
             for pnt in shape:
-                t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
+                t.append([int(pnt[0] / img_scale), int(pnt[1] / img_scale)])
             drawData12.append(t)
 
         for shape in pnt_datas13:
             t = []
             for pnt in shape:
-                t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
+                t.append([int(pnt[0] / img_scale), int(pnt[1] / img_scale)])
             drawData13.append(t)
 
         for shape in pnt_datas14:
             t = []
             for pnt in shape:
-                t.append([int(pnt[0] / 3), int(pnt[1] / 3)])
+                t.append([int(pnt[0] / img_scale), int(pnt[1] / img_scale)])
             drawData14.append(t)
 
         for d in drawData11:
@@ -534,8 +555,15 @@ def drawExceptHelper(i11, i12, i13, i14, p1, p2, p3, p4):
 # img3 = cv2.resize(img3, (360, 640))
 # img4 = cv2.resize(img4, (360, 640))
 
-# logpath = "C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/대상WL 로그재현 Tool/log/DetectManager20230317.log"
-# analysis = readLog(logpath)
+# logpath = "C:/Users/USER/Desktop/Programs/Corners_programs/pythontools/대상WL 로그재현 Tool/log/DetectManager20231207.log"
+# # analysis = readLog(logpath)
+# all_lines, evt_lines = readLog(logpath)
+# analysis = []
+# for idx, evt_num in evt_lines:
+#     if evt_num == 11666:
+#         lines = getPreviousLines(all_lines, idx, 200)
+#         # print("Lines around event: ", evt_num_to_find)
+#         analysis = getAnalysis(lines)
 
 # timeF = datetime.strptime("08:30:00", "%H:%M:%S").time()
 # timeT = datetime.strptime("09:33:00", "%H:%M:%S").time()

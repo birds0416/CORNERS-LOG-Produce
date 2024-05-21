@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
 from tkinter import messagebox
+import re
 
 '''
     analysis 리스트안에는 분석 1회에 대한 정보가 들어있음
@@ -81,77 +82,63 @@ def getFileSize(logPath):
     return size
 
 def readLog(logPath):
-    analysis = []
-    temp = []
-    isAnalyze = False
-    filesize = getFileSize(logPath)
-
+    all_lines = []
+    evt_lines = []
     try:
         logFile = open(logPath, 'rt', encoding='cp949')
-        for idx, line in enumerate(logFile):
-            if line[33:54] == "=== START ANALIZE ===":
-                isAnalyze = True
-                # 1회 분석을 기준으로 리스트 업데이트
-                if temp != []:
-                    analysis.append(temp)
-                    temp = []
-                # temp.append(line)
-
-            else:
-                isAnalyze = False
-
-            info = line[33:].split(",")
-            new_info = []
-            for i in info:
-                new_info.append(i.strip())
-            
-            if isAnalyze == False and idx != 0:
-                # DEBUG 메시지 제외
-                if line[25:32] == "[DEBUG]":
-                    pass
-                if new_info[0].startswith("Detect object VALID") or new_info[0].startswith("Detect object EX"):
-                    temp.append(line)
-                # 이벤트 발생 메시지 제외
-
-        analysis.append(temp)
-        temp = []
-            
+        all_lines = logFile.readlines()
     except UnicodeDecodeError:
         try:
             logFile = open(logPath, 'rt', encoding='UTF8')
-            for idx, line in enumerate(logFile):
-                if line[33:54] == "=== START ANALIZE ===":
-                    isAnalyze = True
-                    # 1회 분석을 기준으로 리스트 업데이트
-                    if temp != []:
-                        analysis.append(temp)
-                        temp = []
-                    # temp.append(line)
-
-                else:
-                    isAnalyze = False
-
-                info = line[33:].split(",")
-                new_info = []
-                for i in info:
-                    new_info.append(i.strip())
-                
-                if isAnalyze == False and idx != 0:
-                    # DEBUG 메시지 제외
-                    if line[25:32] == "[DEBUG]":
-                        pass
-                    if new_info[0].startswith("Detect object VALID") or new_info[0].startswith("Detect object EX"):
-                        temp.append(line)
-                    # 이벤트 발생 메시지 제외
-
-            analysis.append(temp)
-            temp = []
-                
+            all_lines = logFile.readlines()
         except UnicodeDecodeError:
-            # If the file is not encoded in utf-8 either, handle the error
             messagebox.showerror(title="File Format Not Supported", message=f'Error: {logPath} 가 cp949 or utf-8 형식으로 인코딩되어야 합니다.')
             print(f'Error: {logPath} is not encoded in cp949 or utf-8.')
+    
+    pattern = r"이벤트 발생 \[(\d+)\]"
+    for idx, line in enumerate(all_lines):
+        if line[33:43] == "### 이벤트 발생":
+            match = re.search(pattern, line)
+            if match:
+                evt_num = int(match.group(1))
+                evt_lines.append((idx, evt_num))
+    return all_lines, evt_lines
 
+def getPreviousLines(all_lines, evt_idx, lines_before=200):
+    start_idx = max(evt_idx - lines_before, 0)
+    while start_idx > 0 and "=== START ANALIZE ===" not in all_lines[start_idx]:
+        start_idx -= 1
+    return all_lines[start_idx:evt_idx + 1]
+
+def getAnalysis(lines):
+    temp = []
+    analysis = []
+    isAnalyze = False
+    for idx, line in enumerate(lines):
+        if line[33:54] == "=== START ANALIZE ===":
+            isAnalyze = True
+            # 1회 분석을 기준으로 리스트 업데이트
+            if temp != []:
+                analysis.append(temp)
+                temp = []
+        else:
+            isAnalyze = False
+        
+        info = line[33:].split(",")
+        new_info = []
+        for i in info:
+            new_info.append(i.strip())
+        
+        if isAnalyze == False and idx != 0:
+            # DEBUG 메시지 제외
+            if line[25:32] == "[DEBUG]":
+                pass
+            if new_info[0].startswith("Detect object VALID") or new_info[0].startswith("Detect object EX"):
+                temp.append(line)
+            # 이벤트 발생 메시지 제외
+
+    analysis.append(temp)
+    temp = []
     return analysis
 
 # TODO
@@ -257,20 +244,30 @@ def getBox(analyze):
 
 # import json
 # path = "./log/DetectManager20230328.log"
-# analysis = readLog(path)
+# path = "./log/DetectManager20231207.log"
+# all_lines, evt_lines = readLog(path)
+
+# evt_num_to_find = 11666
+# analysis = []
+# for idx, evt_num in evt_lines:
+#     if evt_num == evt_num_to_find:
+#         lines = getPreviousLines(all_lines, idx, 200)
+#         # print("Lines around event: ", evt_num_to_find)
+#         analysis = getAnalysis(lines)
 
 # for idx, item in enumerate(analysis):
-#     print(idx)
-#     for i in item:
-#         print(i)
-    # iDate, iTime = getTime(item)
-    # print("Analyze Date: ", iDate)
-    # print("Analyze Time: ", iTime)
-    # print("Is Valid: ", isValid(item))
-    # print("Device ID: ", getDeviceID(item))
-    # print("Detect Object: ", getObject(item))
-    # print("X, Y, W, H: ", getBox(item))
-    # print("\n")
+#     # print(item)
+# #     # for i in item:
+# #     #     print(i)
+#     iDate, iTime = getTime(item)
+#     print("Analyze Date: ", iDate)
+#     print("Analyze Time: ", iTime)
+#     print("Is Valid: ", isValid(item))
+#     print("Device ID: ", getDeviceID(item))
+#     print("Detect Object: ", getObject(item))
+#     print("X, Y, W, H: ", getBox(item))
+#     # print("evtNum: 12700? {}".format(findEvt(item, 12700)))
+#     print("\n")
 
 # newJson = {"Analysis Test":[]}
 # json_obj = json.dumps(newJson, indent=4)

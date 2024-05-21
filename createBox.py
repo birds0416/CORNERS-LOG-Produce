@@ -20,11 +20,14 @@ def imread(filename, flags=cv2.IMREAD_COLOR, dtype=np.uint8):
         return None
 
 class ImagePlayer:
-    def __init__(self, win, imgPath, deviceID, idx):
+    def __init__(self, win, imgPath, deviceID, idx, width, height):
         self.win = win
         self.imgPath = imgPath
         self.deviceID = deviceID
         self.idx = idx
+        
+        self.width = width
+        self.height = height
 
         self.contain0 = Frame(self.win)
         self.contain0.pack(side="left", anchor=NW, padx=(10, 0))
@@ -39,7 +42,7 @@ class ImagePlayer:
         self.label.pack(side="left", padx=10)
 
         self.img = imread(self.imgPath)
-        self.img = cv2.resize(self.img, (360, 640))
+        self.img = cv2.resize(self.img, (width, height))
 
         self.img_pil = Image.fromarray(cv2.cvtColor(self.img, cv2.COLOR_BGR2RGB))
         self.img_tk = ImageTk.PhotoImage(self.img_pil)

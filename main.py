@@ -21,9 +21,8 @@ from PIL import ImageTk, Image
 win= Tk()
 win.title("대상WL 로그재현 Tool")
 #Set the geometry of Tkinter frame
-win.geometry("900x400")
+win.geometry("900x500")
 win.protocol('WM_DELETE_WINDOW', lambda: onclose(win))
-
 
 '''
 TODO
@@ -94,33 +93,27 @@ def getImg(btn):
         imgPath14Entry.insert("1.0", "")
 
     if path != '':
-        print("user chose", path)
+        # print("user chose", path)
         if btn == "btn11 clicked":
             imgPath11Entry.insert("1.0", path)
-            # if path not in imgPathList:
-            #     imgPathList.append(path)
             imgPathList[0] = path
 
         elif btn == "btn12 clicked":
             imgPath12Entry.insert("1.0", path)
-            # if path not in imgPathList:
-            #     imgPathList.append(path)
             imgPathList[1] = path
 
         elif btn == "btn13 clicked":
             imgPath13Entry.insert("1.0", path)
-            # if path not in imgPathList:
-            #     imgPathList.append(path)
             imgPathList[2] = path
 
         elif btn == "btn14 clicked":
             imgPath14Entry.insert("1.0", path)
-            # if path not in imgPathList:
-            #     imgPathList.append(path)
             imgPathList[3] = path
         
     else:
-        print("Image Not Selected")
+        messagebox.showwarning(title="이미지 선택 오류", message="이미지를 선택하세요.")
+        # print("Image Not Selected")
+        pass
 
 # 로그 파일 불러오기
 def getLog():
@@ -137,10 +130,12 @@ def getLog():
         logPathEntry.insert("1.0", "")
 
     if path != '':
-        print("user chose", path)
+        # print("user chose", path)
         logPathEntry.insert("1.0", path)
     else:
-        print("Image Not Selected")
+        messagebox.showwarning(title="이미지 선택 오류", message="이미지를 선택하세요.")
+        # print("Image Not Selected")
+        pass
 
 setTimeF = False
 setTimeT = False
@@ -183,6 +178,7 @@ player13 = None
 player14 = None
 log_idx = 0
 logfilesize = 0
+init_img_scale = 3
 
 def playImg(btn):
     global player11, player12, player13, player14
@@ -190,6 +186,8 @@ def playImg(btn):
     
     global setTimeF
     global setTimeT
+    
+    global init_img_scale
 
     global imgWin
     global img11path
@@ -199,6 +197,7 @@ def playImg(btn):
     global logFile
     global log_idx
     global logfilesize
+    global evtNum
 
     tF = None
     tT = None
@@ -208,7 +207,19 @@ def playImg(btn):
 
     log_idx = getIdx()
     isTimeSet()
-
+    
+    imgScales = [(360, 640), (270, 480)]
+    curImgScale = (360, 640)
+    if scaleCombo.get() == "360x640":
+        curImgScale = imgScales[0]
+        init_img_scale = 3
+    elif scaleCombo.get() == "270x480":
+        curImgScale = imgScales[1]
+        init_img_scale = 4
+    else:
+        curImgScale = imgScales[0]
+        init_img_scale = 3
+    
     if not opened:
         imgWin = Toplevel()
         imgWin.title("박스 표시")
@@ -235,6 +246,8 @@ def playImg(btn):
 
     timeF = datetime.strptime(tF, "%H:%M:%S").time()
     timeT = datetime.strptime(tT, "%H:%M:%S").time()
+    
+    evtNum = int(evtNumEntry.get())
 
     if btn == "btn play":
         savePathFile(imgPathList)
@@ -252,11 +265,11 @@ def playImg(btn):
         if getFinish() == False:
             # 정지가 아닐 때 이미지 새로 생성 금지
             if getPause() == False:
-                player11 = ImagePlayer(imgWin, img11path, 11, 0)
-                player12 = ImagePlayer(imgWin, img12path, 12, 0)
-                player13 = ImagePlayer(imgWin, img13path, 13, 0)
-                player14 = ImagePlayer(imgWin, img14path, 14, 0)
-            drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, speed)
+                player11 = ImagePlayer(imgWin, img11path, 11, 0, curImgScale[0], curImgScale[1])
+                player12 = ImagePlayer(imgWin, img12path, 12, 0, curImgScale[0], curImgScale[1])
+                player13 = ImagePlayer(imgWin, img13path, 13, 0, curImgScale[0], curImgScale[1])
+                player14 = ImagePlayer(imgWin, img14path, 14, 0, curImgScale[0], curImgScale[1])
+            drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, speed, init_img_scale, evtNum)
         # 종료 후 다시 시작할 때
         else:
             setFinish(False)
@@ -264,43 +277,43 @@ def playImg(btn):
             log_idx = initIdx()
             showExcept.set(0)
             if not restart:
-                player11 = ImagePlayer(imgWin, img11path, 11, 0)
-                player12 = ImagePlayer(imgWin, img12path, 12, 0)
-                player13 = ImagePlayer(imgWin, img13path, 13, 0)
-                player14 = ImagePlayer(imgWin, img14path, 14, 0)
-            drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, speed)
+                player11 = ImagePlayer(imgWin, img11path, 11, 0, curImgScale[0], curImgScale[1])
+                player12 = ImagePlayer(imgWin, img12path, 12, 0, curImgScale[0], curImgScale[1])
+                player13 = ImagePlayer(imgWin, img13path, 13, 0, curImgScale[0], curImgScale[1])
+                player14 = ImagePlayer(imgWin, img14path, 14, 0, curImgScale[0], curImgScale[1])
+            drawBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, speed, init_img_scale, evtNum)
 
     # 일시정지, log_idx 유지
     elif btn == "btn pause":
         setFinish(False)
         setPause(True)
-        print("Paused")
+        # print("Paused")
 
     # log_idx -= 1
     elif btn == "btn back":
-        print("Back")
+        # print("Back")
         setFinish(False)
         setPause(True)
         if log_idx - 1 < 0:
             messagebox.showwarning(title="Beginning of Log File", message="BEGINNING OF LOG FILE: 로그의 처음입니다.")
         else:
-            prevBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
+            prevBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, init_img_scale, evtNum)
 
     # log_idx += 1
     elif btn == "btn next":
         print("Next")
         setFinish(False)
         setPause(True)
-        print("log_idx: ", log_idx)
-        print("logfilesize: ", logfilesize)
+        # print("log_idx: ", log_idx)
+        # print("logfilesize: ", logfilesize)
         if log_idx + 1 > logfilesize:
             messagebox.showwarning(title="End of Log File", message="END OF LOG FILE: 로그의 끝입니다.")
         else:
-            nextBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx)
+            nextBox(imgWin, player11, player12, player13, player14, logFile, timeF, timeT, log_idx, init_img_scale, evtNum)
 
     # 재생 중단, log_idx를 0으로 재설정
     elif btn == "btn stop":
-        print("Stop")
+        # print("Stop")
         setFinish(True)
         setPause(False)
         log_idx = initIdx()
@@ -310,24 +323,25 @@ def playImg(btn):
 
     # 종료 버튼 누름으로 창 닫기
     elif btn == "btn finish":
-        print("Finish")
+        # print("Finish")
         win.destroy()
-    
+        
     imgWin.mainloop()
-
+    
 def getExcept():
     global player11, player12, player13, player14
     global imgWin
+    global init_img_scale
     if showExcept.get() == 1:
-        print("예외구역 ON")
-        print("showExcept = ", showExcept.get())
+        # print("예외구역 ON")
+        # print("showExcept = ", showExcept.get())
         setIsExcept(True)
-        drawExcept(imgWin, player11, player12, player13, player14, showExcept.get())
+        drawExcept(imgWin, player11, player12, player13, player14, showExcept.get(), init_img_scale)
     else:
-        print("예외구역 OFF")
-        print("showExcept = ", showExcept.get())
+        # print("예외구역 OFF")
+        # print("showExcept = ", showExcept.get())
         setIsExcept(False)
-        drawExcept(imgWin, player11, player12, player13, player14, showExcept.get())
+        drawExcept(imgWin, player11, player12, player13, player14, showExcept.get(), init_img_scale)
 
 if __name__ == "__main__":
 
@@ -375,7 +389,7 @@ if __name__ == "__main__":
     contain4 = Frame(win)
     contain4.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
     logPath = Label(contain4, text="로그파일", font=('Arial', 10))
-    logPath.pack(side="left", padx=(30, 65))
+    logPath.pack(side="left", padx=(30, 60))
 
     logPathEntry = Text(contain4, width=70, height=2)
     logPathEntry.pack(side="left")
@@ -385,13 +399,33 @@ if __name__ == "__main__":
     contain5 = Frame(win)
     contain5.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
     showExcept = IntVar()
-    exceptChkBox = Checkbutton(contain5, text="예외구역 표시", variable=showExcept, command=getExcept).pack(side="left", padx=150, pady=5)
+    exceptChkBox = Checkbutton(contain5, text="예외구역 표시", variable=showExcept, command=getExcept).pack(side="left", padx=135)
+    
+    ''' 이벤트 번호 설정 '''
+    contain9 = Frame(win)
+    contain9.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
+    evtNum = Label(contain9, text="이벤트 번호", font=('Arial', 10))
+    evtNum.pack(side="left", padx=(30, 45))
+    
+    evtNumVal = StringVar(contain9, value="0")
+    evtNumEntry = Entry(contain9, width=20, textvariable = evtNumVal)
+    evtNumEntry.pack(side="left", padx=(0, 3), pady=5)
+
+    ''' 이미지 사이즈 설정 '''
+    contain10 = Frame(win)
+    contain10.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
+    imgSize = Label(contain10, text="이미지 크기", font=('Arial', 10))
+    imgSize.pack(side="left", padx=(30, 45))
+    
+    scaleCombo = ttk.Combobox(contain10, width=15, height=5, values=["360x640", "270x480"])
+    scaleCombo.set("이미지 크기 설정")
+    scaleCombo.pack(side="left", padx=(0, 3))
     
     ''' 재생구간 '''
     contain6 = Frame(win)
     contain6.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
     playInterval = Label(contain6, text="재생구간", font=('Arial', 10))
-    playInterval.pack(side="left", padx=(30, 65))
+    playInterval.pack(side="left", padx=(30, 60))
 
     playFromVal = StringVar(contain6, value="00:00:00")
     playFromEntry = Entry(contain6, width=20, textvariable = playFromVal)
@@ -406,7 +440,7 @@ if __name__ == "__main__":
     contain7.pack(side="top", anchor=NW, expand=True, fill=BOTH, padx=10)
     
     playSpeed = Label(contain7, text="재생속도", font=('Arial', 10))
-    playSpeed.pack(side="left", padx=(30, 65))
+    playSpeed.pack(side="left", padx=(30, 60))
     playSpeedVal = StringVar(contain7, value="10")
     playSpeedEntry = Entry(contain7, width=10, justify=CENTER, textvariable=playSpeedVal)
     playSpeedEntry.pack(side="left", padx=(0, 3), pady=5)
