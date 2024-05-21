@@ -13,9 +13,9 @@ python main.py
 
 ## 사용방법
 
-<img src="./device_image/program_capture.png">
+<img src="./program_capture.png">
 ---
-<img src="./device_image/program_capture2.png"> 이미지 띄웠을 때 화면 캡쳐
+<img src="./program_capture2.png"> 이미지 띄웠을 때 화면 캡쳐
 
 ---
 
