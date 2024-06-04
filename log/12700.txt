@@ -1,0 +1,267 @@
+[2024-05-16 16:07:20,777][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:20,777][INFO ] Detect object EX 1  = 11, forklift, 0, 1044, 944, 875, mX : 472, bt : 1919
+[2024-05-16 16:07:20,777][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:20,778][INFO ] Detect object VALID = 13, forklift, 172, 928, 346, 346, mX : 345, bt : 1274
+[2024-05-16 16:07:20,820][INFO ] MQTT = 11, forklift, 30%, 0, 1044, 962, 890
+[2024-05-16 16:07:20,929][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:20,929][INFO ] Detect object EX 1  = 11, forklift, 0, 1044, 962, 875, mX : 481, bt : 1919
+[2024-05-16 16:07:20,929][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:20,930][INFO ] Detect object VALID = 13, forklift, 172, 928, 346, 346, mX : 345, bt : 1274
+[2024-05-16 16:07:20,983][INFO ] MQTT = 13, forklift, 96%, 184, 928, 342, 346
+[2024-05-16 16:07:21,066][INFO ] MQTT = 12, forklift, 94%, 572, 364, 112, 288
+[2024-05-16 16:07:21,081][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:21,081][INFO ] Detect object EX 1  = 11, forklift, 0, 1044, 962, 875, mX : 481, bt : 1919
+[2024-05-16 16:07:21,081][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:21,082][INFO ] Detect object VALID = 13, forklift, 184, 928, 342, 346, mX : 355, bt : 1274
+[2024-05-16 16:07:21,233][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:21,233][INFO ] Detect object EX 1  = 11, forklift, 0, 1044, 962, 875, mX : 481, bt : 1919
+[2024-05-16 16:07:21,233][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:21,239][INFO ] Detect object VALID = 13, forklift, 184, 928, 342, 346, mX : 355, bt : 1274
+[2024-05-16 16:07:21,387][INFO ] MQTT = 14, forklift, 91%, 316, 998, 126, 256
+[2024-05-16 16:07:21,390][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:21,390][INFO ] Detect object EX 1  = 11, forklift, 0, 1044, 962, 875, mX : 481, bt : 1919
+[2024-05-16 16:07:21,390][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:21,391][INFO ] Detect object VALID = 13, forklift, 184, 928, 342, 346, mX : 355, bt : 1274
+[2024-05-16 16:07:21,391][INFO ] Detect object VALID = 14, forklift, 316, 998, 126, 256, mX : 379, bt : 1254
+[2024-05-16 16:07:21,482][INFO ] MQTT = 13, forklift, 94%, 176, 922, 352, 358
+[2024-05-16 16:07:21,541][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:21,542][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:21,542][INFO ] Detect object VALID = 13, forklift, 176, 922, 352, 358, mX : 352, bt : 1280
+[2024-05-16 16:07:21,542][INFO ] Detect object VALID = 14, forklift, 316, 998, 126, 256, mX : 379, bt : 1254
+[2024-05-16 16:07:21,663][INFO ] MQTT = 12, forklift, 94%, 572, 364, 112, 288
+[2024-05-16 16:07:21,693][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:21,693][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:21,694][INFO ] Detect object VALID = 13, forklift, 176, 922, 352, 358, mX : 352, bt : 1280
+[2024-05-16 16:07:21,694][INFO ] Detect object VALID = 14, forklift, 316, 998, 126, 256, mX : 379, bt : 1254
+[2024-05-16 16:07:21,845][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:21,845][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:21,846][INFO ] Detect object VALID = 13, forklift, 176, 922, 352, 358, mX : 352, bt : 1280
+[2024-05-16 16:07:21,846][INFO ] Detect object VALID = 14, forklift, 316, 998, 126, 256, mX : 379, bt : 1254
+[2024-05-16 16:07:21,994][INFO ] MQTT = 13, forklift, 89%, 190, 934, 368, 352
+[2024-05-16 16:07:21,997][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:21,997][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:21,997][INFO ] Detect object VALID = 13, forklift, 190, 934, 368, 352, mX : 374, bt : 1286
+[2024-05-16 16:07:21,998][INFO ] Detect object VALID = 14, forklift, 316, 998, 126, 256, mX : 379, bt : 1254
+[2024-05-16 16:07:22,102][INFO ] MQTT = 12, forklift, 94%, 572, 364, 112, 288
+[2024-05-16 16:07:22,148][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:22,149][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:22,149][INFO ] Detect object VALID = 13, forklift, 190, 934, 368, 352, mX : 374, bt : 1286
+[2024-05-16 16:07:22,149][INFO ] Detect object VALID = 14, forklift, 316, 998, 126, 256, mX : 379, bt : 1254
+[2024-05-16 16:07:22,300][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:22,300][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:22,301][INFO ] Detect object VALID = 13, forklift, 190, 934, 368, 352, mX : 374, bt : 1286
+[2024-05-16 16:07:22,301][INFO ] Detect object VALID = 14, forklift, 316, 998, 126, 256, mX : 379, bt : 1254
+[2024-05-16 16:07:22,343][INFO ] MQTT = 14, forklift, 98%, 314, 1004, 144, 282
+[2024-05-16 16:07:22,452][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:22,452][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:22,452][INFO ] Detect object VALID = 13, forklift, 190, 934, 368, 352, mX : 374, bt : 1286
+[2024-05-16 16:07:22,453][INFO ] Detect object VALID = 14, forklift, 314, 1004, 144, 282, mX : 386, bt : 1286
+[2024-05-16 16:07:22,512][INFO ] MQTT = 13, forklift, 87%, 198, 922, 396, 358
+[2024-05-16 16:07:22,604][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:22,604][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:22,604][INFO ] Detect object VALID = 13, forklift, 198, 922, 396, 358, mX : 396, bt : 1280
+[2024-05-16 16:07:22,604][INFO ] Detect object VALID = 14, forklift, 314, 1004, 144, 282, mX : 386, bt : 1286
+[2024-05-16 16:07:22,646][INFO ] MQTT = 12, forklift, 94%, 572, 364, 112, 288
+[2024-05-16 16:07:22,755][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:22,755][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:22,756][INFO ] Detect object VALID = 13, forklift, 198, 922, 396, 358, mX : 396, bt : 1280
+[2024-05-16 16:07:22,756][INFO ] Detect object VALID = 14, forklift, 314, 1004, 144, 282, mX : 386, bt : 1286
+[2024-05-16 16:07:22,907][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:22,907][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:22,908][INFO ] Detect object VALID = 13, forklift, 198, 922, 396, 358, mX : 396, bt : 1280
+[2024-05-16 16:07:22,908][INFO ] Detect object VALID = 14, forklift, 314, 1004, 144, 282, mX : 386, bt : 1286
+[2024-05-16 16:07:22,957][INFO ] MQTT = 11, forklift, 37%, 0, 1050, 944, 870
+[2024-05-16 16:07:23,059][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:23,059][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 944, 869, mX : 472, bt : 1919
+[2024-05-16 16:07:23,059][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:23,060][INFO ] Detect object VALID = 13, forklift, 198, 922, 396, 358, mX : 396, bt : 1280
+[2024-05-16 16:07:23,060][INFO ] Detect object VALID = 14, forklift, 314, 1004, 144, 282, mX : 386, bt : 1286
+[2024-05-16 16:07:23,101][INFO ] MQTT = 13, forklift, 90%, 190, 916, 446, 372
+[2024-05-16 16:07:23,103][INFO ] MQTT = 12, forklift, 92%, 572, 364, 112, 288
+[2024-05-16 16:07:23,210][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:23,210][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 944, 869, mX : 472, bt : 1919
+[2024-05-16 16:07:23,210][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:23,211][INFO ] Detect object VALID = 13, forklift, 190, 916, 446, 372, mX : 413, bt : 1288
+[2024-05-16 16:07:23,211][INFO ] Detect object VALID = 14, forklift, 314, 1004, 144, 282, mX : 386, bt : 1286
+[2024-05-16 16:07:23,252][INFO ] MQTT = 14, forklift, 98%, 320, 1012, 154, 294
+[2024-05-16 16:07:23,361][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:23,362][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 944, 869, mX : 472, bt : 1919
+[2024-05-16 16:07:23,362][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:23,362][INFO ] Detect object VALID = 13, forklift, 190, 916, 446, 372, mX : 413, bt : 1288
+[2024-05-16 16:07:23,363][INFO ] Detect object VALID = 14, forklift, 320, 1012, 154, 294, mX : 397, bt : 1306
+[2024-05-16 16:07:23,513][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:23,513][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 944, 869, mX : 472, bt : 1919
+[2024-05-16 16:07:23,514][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:23,514][INFO ] Detect object VALID = 13, forklift, 190, 916, 446, 372, mX : 413, bt : 1288
+[2024-05-16 16:07:23,514][INFO ] Detect object VALID = 14, forklift, 320, 1012, 154, 294, mX : 397, bt : 1306
+[2024-05-16 16:07:23,556][INFO ] MQTT = 13, forklift, 89%, 190, 928, 464, 364
+[2024-05-16 16:07:23,572][INFO ] MQTT = 11, forklift, 30%, 4, 1056, 926, 858
+[2024-05-16 16:07:23,665][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:23,665][INFO ] Detect object EX 1  = 11, forklift, 4, 1056, 926, 858, mX : 467, bt : 1914
+[2024-05-16 16:07:23,666][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:23,666][INFO ] Detect object VALID = 13, forklift, 190, 928, 464, 364, mX : 422, bt : 1292
+[2024-05-16 16:07:23,666][INFO ] Detect object VALID = 14, forklift, 320, 1012, 154, 294, mX : 397, bt : 1306
+[2024-05-16 16:07:23,708][INFO ] MQTT = 12, forklift, 93%, 572, 364, 112, 282
+[2024-05-16 16:07:23,817][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:23,818][INFO ] Detect object EX 1  = 11, forklift, 4, 1056, 926, 858, mX : 467, bt : 1914
+[2024-05-16 16:07:23,818][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 282, mX : 628, bt : 646
+[2024-05-16 16:07:23,818][INFO ] Detect object VALID = 13, forklift, 190, 928, 464, 364, mX : 422, bt : 1292
+[2024-05-16 16:07:23,818][INFO ] Detect object VALID = 14, forklift, 320, 1012, 154, 294, mX : 397, bt : 1306
+[2024-05-16 16:07:23,969][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:23,969][INFO ] Detect object EX 1  = 11, forklift, 4, 1056, 926, 858, mX : 467, bt : 1914
+[2024-05-16 16:07:23,970][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 282, mX : 628, bt : 646
+[2024-05-16 16:07:23,970][INFO ] Detect object VALID = 13, forklift, 190, 928, 464, 364, mX : 422, bt : 1292
+[2024-05-16 16:07:23,970][INFO ] Detect object VALID = 14, forklift, 320, 1012, 154, 294, mX : 397, bt : 1306
+[2024-05-16 16:07:24,082][INFO ] MQTT = 13, forklift, 94%, 256, 934, 436, 358
+[2024-05-16 16:07:24,084][INFO ] MQTT = 14, forklift, 99%, 324, 1024, 162, 308
+[2024-05-16 16:07:24,121][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:24,121][INFO ] Detect object EX 1  = 11, forklift, 4, 1056, 926, 858, mX : 467, bt : 1914
+[2024-05-16 16:07:24,122][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 282, mX : 628, bt : 646
+[2024-05-16 16:07:24,122][INFO ] Detect object VALID = 13, forklift, 256, 934, 436, 358, mX : 474, bt : 1292
+[2024-05-16 16:07:24,122][INFO ] Detect object VALID = 14, forklift, 324, 1024, 162, 308, mX : 405, bt : 1332
+[2024-05-16 16:07:24,192][INFO ] MQTT = 12, forklift, 93%, 572, 364, 112, 288
+[2024-05-16 16:07:24,260][INFO ] MQTT = 11, forklift, 32%, 0, 1050, 944, 870
+[2024-05-16 16:07:24,273][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:24,274][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 944, 869, mX : 472, bt : 1919
+[2024-05-16 16:07:24,274][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:24,274][INFO ] Detect object VALID = 13, forklift, 256, 934, 436, 358, mX : 474, bt : 1292
+[2024-05-16 16:07:24,274][INFO ] Detect object VALID = 14, forklift, 324, 1024, 162, 308, mX : 405, bt : 1332
+[2024-05-16 16:07:24,425][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:24,426][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 944, 869, mX : 472, bt : 1919
+[2024-05-16 16:07:24,426][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:24,426][INFO ] Detect object VALID = 13, forklift, 256, 934, 436, 358, mX : 474, bt : 1292
+[2024-05-16 16:07:24,426][INFO ] Detect object VALID = 14, forklift, 324, 1024, 162, 308, mX : 405, bt : 1332
+[2024-05-16 16:07:24,577][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:24,577][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 944, 869, mX : 472, bt : 1919
+[2024-05-16 16:07:24,577][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:24,578][INFO ] Detect object VALID = 13, forklift, 256, 934, 436, 358, mX : 474, bt : 1292
+[2024-05-16 16:07:24,578][INFO ] Detect object VALID = 14, forklift, 324, 1024, 162, 308, mX : 405, bt : 1332
+[2024-05-16 16:07:24,622][INFO ] MQTT = 13, forklift, 96%, 270, 928, 428, 390
+[2024-05-16 16:07:24,705][INFO ] MQTT = 12, forklift, 94%, 572, 364, 112, 288
+[2024-05-16 16:07:24,729][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:24,729][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 944, 869, mX : 472, bt : 1919
+[2024-05-16 16:07:24,729][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:24,730][INFO ] Detect object VALID = 13, forklift, 270, 928, 428, 390, mX : 484, bt : 1318
+[2024-05-16 16:07:24,730][INFO ] Detect object VALID = 14, forklift, 324, 1024, 162, 308, mX : 405, bt : 1332
+[2024-05-16 16:07:24,881][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:24,881][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 944, 869, mX : 472, bt : 1919
+[2024-05-16 16:07:24,881][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:24,882][INFO ] Detect object VALID = 13, forklift, 270, 928, 428, 390, mX : 484, bt : 1318
+[2024-05-16 16:07:24,882][INFO ] Detect object VALID = 14, forklift, 324, 1024, 162, 308, mX : 405, bt : 1332
+[2024-05-16 16:07:25,001][INFO ] MQTT = 11, forklift, 39%, 0, 1050, 962, 870
+[2024-05-16 16:07:25,033][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:25,033][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 962, 869, mX : 481, bt : 1919
+[2024-05-16 16:07:25,034][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:25,034][INFO ] Detect object VALID = 13, forklift, 270, 928, 428, 390, mX : 484, bt : 1318
+[2024-05-16 16:07:25,034][INFO ] Detect object VALID = 14, forklift, 324, 1024, 162, 308, mX : 405, bt : 1332
+[2024-05-16 16:07:25,185][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:25,185][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 962, 869, mX : 481, bt : 1919
+[2024-05-16 16:07:25,186][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:25,186][INFO ] Detect object VALID = 13, forklift, 270, 928, 428, 390, mX : 484, bt : 1318
+[2024-05-16 16:07:25,186][INFO ] Detect object VALID = 14, forklift, 324, 1024, 162, 308, mX : 405, bt : 1332
+[2024-05-16 16:07:25,231][INFO ] MQTT = 14, forklift, 99%, 334, 1030, 170, 332
+[2024-05-16 16:07:25,231][INFO ] MQTT = 13, forklift, 98%, 350, 934, 360, 436
+[2024-05-16 16:07:25,232][INFO ] MQTT = 12, forklift, 92%, 572, 364, 112, 288
+[2024-05-16 16:07:25,337][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:25,337][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 962, 869, mX : 481, bt : 1919
+[2024-05-16 16:07:25,337][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:25,344][INFO ] Detect object VALID = 13, forklift, 350, 934, 360, 436, mX : 530, bt : 1370
+[2024-05-16 16:07:25,344][INFO ] Detect object VALID = 14, forklift, 334, 1030, 170, 332, mX : 419, bt : 1362
+[2024-05-16 16:07:25,495][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:25,495][INFO ] Detect object EX 1  = 11, forklift, 0, 1050, 962, 869, mX : 481, bt : 1919
+[2024-05-16 16:07:25,495][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:25,495][INFO ] Detect object VALID = 13, forklift, 350, 934, 360, 436, mX : 530, bt : 1370
+[2024-05-16 16:07:25,496][INFO ] Detect object VALID = 14, forklift, 334, 1030, 170, 332, mX : 419, bt : 1362
+[2024-05-16 16:07:25,646][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:25,647][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:25,647][INFO ] Detect object VALID = 13, forklift, 350, 934, 360, 436, mX : 530, bt : 1370
+[2024-05-16 16:07:25,647][INFO ] Detect object VALID = 14, forklift, 334, 1030, 170, 332, mX : 419, bt : 1362
+[2024-05-16 16:07:25,742][INFO ] MQTT = 13, forklift, 99%, 428, 954, 270, 460
+[2024-05-16 16:07:25,754][INFO ] MQTT = 12, forklift, 94%, 572, 364, 112, 288
+[2024-05-16 16:07:25,798][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:25,798][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:25,798][INFO ] Detect object VALID = 13, forklift, 428, 954, 270, 460, mX : 563, bt : 1414
+[2024-05-16 16:07:25,798][DEBUG] 이동 Down F : T [20] 934 -> 954, B [44] 1370 -> 1414
+[2024-05-16 16:07:25,799][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:25,799][INFO ] Detect object VALID = 14, forklift, 334, 1030, 170, 332, mX : 419, bt : 1362
+[2024-05-16 16:07:25,949][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:25,950][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:25,950][INFO ] Detect object VALID = 13, forklift, 428, 954, 270, 460, mX : 563, bt : 1414
+[2024-05-16 16:07:25,950][DEBUG] 이동 Down F : T [20] 934 -> 954, B [44] 1370 -> 1414
+[2024-05-16 16:07:25,950][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:25,950][INFO ] Detect object VALID = 14, forklift, 334, 1030, 170, 332, mX : 419, bt : 1362
+[2024-05-16 16:07:26,101][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:26,102][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:26,102][INFO ] Detect object VALID = 13, forklift, 428, 954, 270, 460, mX : 563, bt : 1414
+[2024-05-16 16:07:26,102][DEBUG] 이동 Down F : T [20] 934 -> 954, B [44] 1370 -> 1414
+[2024-05-16 16:07:26,102][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:26,102][INFO ] Detect object VALID = 14, forklift, 334, 1030, 170, 332, mX : 419, bt : 1362
+[2024-05-16 16:07:26,253][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:26,253][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:26,254][INFO ] Detect object VALID = 13, forklift, 428, 954, 270, 460, mX : 563, bt : 1414
+[2024-05-16 16:07:26,254][DEBUG] 이동 Down F : T [20] 934 -> 954, B [44] 1370 -> 1414
+[2024-05-16 16:07:26,254][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:26,254][INFO ] Detect object VALID = 14, forklift, 334, 1030, 170, 332, mX : 419, bt : 1362
+[2024-05-16 16:07:26,316][INFO ] MQTT = 14, forklift, 99%, 332, 1044, 202, 390
+[2024-05-16 16:07:26,322][INFO ] MQTT = 13, forklift, 99%, 440, 972, 234, 518
+[2024-05-16 16:07:26,356][INFO ] MQTT = 12, forklift, 93%, 572, 364, 112, 288
+[2024-05-16 16:07:26,360][INFO ] MQTT = 11, forklift, 30%, 0, 1076, 944, 858
+[2024-05-16 16:07:26,405][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:26,405][INFO ] Detect object EX 1  = 11, forklift, 0, 1076, 944, 843, mX : 472, bt : 1919
+[2024-05-16 16:07:26,405][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:26,406][INFO ] Detect object VALID = 13, forklift, 440, 972, 234, 518, mX : 557, bt : 1490
+[2024-05-16 16:07:26,406][DEBUG] 이동 Down F : T [18] 954 -> 972, B [76] 1414 -> 1490
+[2024-05-16 16:07:26,406][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:26,406][INFO ] Detect object VALID = 14, forklift, 332, 1044, 202, 390, mX : 433, bt : 1434
+[2024-05-16 16:07:26,557][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:26,557][INFO ] Detect object EX 1  = 11, forklift, 0, 1076, 944, 843, mX : 472, bt : 1919
+[2024-05-16 16:07:26,557][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:26,557][INFO ] Detect object VALID = 13, forklift, 440, 972, 234, 518, mX : 557, bt : 1490
+[2024-05-16 16:07:26,558][DEBUG] 이동 Down F : T [18] 954 -> 972, B [76] 1414 -> 1490
+[2024-05-16 16:07:26,558][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:26,558][INFO ] Detect object VALID = 14, forklift, 332, 1044, 202, 390, mX : 433, bt : 1434
+[2024-05-16 16:07:26,709][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:26,709][INFO ] Detect object EX 1  = 11, forklift, 0, 1076, 944, 843, mX : 472, bt : 1919
+[2024-05-16 16:07:26,709][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:26,709][INFO ] Detect object VALID = 13, forklift, 440, 972, 234, 518, mX : 557, bt : 1490
+[2024-05-16 16:07:26,709][DEBUG] 이동 Down F : T [18] 954 -> 972, B [76] 1414 -> 1490
+[2024-05-16 16:07:26,709][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:26,710][INFO ] Detect object VALID = 14, forklift, 332, 1044, 202, 390, mX : 433, bt : 1434
+[2024-05-16 16:07:26,802][INFO ] MQTT = 13, forklift, 99%, 428, 998, 266, 564
+[2024-05-16 16:07:26,860][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:26,861][INFO ] Detect object EX 1  = 11, forklift, 0, 1076, 944, 843, mX : 472, bt : 1919
+[2024-05-16 16:07:26,861][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:26,861][INFO ] Detect object VALID = 13, forklift, 428, 998, 266, 564, mX : 561, bt : 1562
+[2024-05-16 16:07:26,862][DEBUG] 이동 Down F : T [26] 972 -> 998, B [72] 1490 -> 1562
+[2024-05-16 16:07:26,862][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:26,862][INFO ] MQTT = 12, forklift, 93%, 572, 364, 112, 288
+[2024-05-16 16:07:26,862][INFO ] Detect object VALID = 14, forklift, 332, 1044, 202, 390, mX : 433, bt : 1434
+[2024-05-16 16:07:26,990][INFO ] MQTT = 11, forklift, 42%, 0, 1056, 944, 858
+[2024-05-16 16:07:27,013][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:27,013][INFO ] Detect object EX 1  = 11, forklift, 0, 1056, 944, 858, mX : 472, bt : 1914
+[2024-05-16 16:07:27,013][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:27,013][INFO ] Detect object VALID = 13, forklift, 428, 998, 266, 564, mX : 561, bt : 1562
+[2024-05-16 16:07:27,013][DEBUG] 이동 Down F : T [26] 972 -> 998, B [72] 1490 -> 1562
+[2024-05-16 16:07:27,013][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:27,014][INFO ] Detect object VALID = 14, forklift, 332, 1044, 202, 390, mX : 433, bt : 1434
+[2024-05-16 16:07:27,164][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:27,165][INFO ] Detect object EX 1  = 11, forklift, 0, 1056, 944, 858, mX : 472, bt : 1914
+[2024-05-16 16:07:27,165][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:27,165][INFO ] Detect object VALID = 13, forklift, 428, 998, 266, 564, mX : 561, bt : 1562
+[2024-05-16 16:07:27,165][DEBUG] 이동 Down F : T [26] 972 -> 998, B [72] 1490 -> 1562
+[2024-05-16 16:07:27,165][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:27,166][INFO ] Detect object VALID = 14, forklift, 332, 1044, 202, 390, mX : 433, bt : 1434
+[2024-05-16 16:07:27,316][INFO ] MQTT = 14, forklift, 99%, 338, 1062, 230, 436
+[2024-05-16 16:07:27,316][INFO ] === START ANALIZE ===
+[2024-05-16 16:07:27,317][INFO ] Detect object EX 1  = 11, forklift, 0, 1056, 944, 858, mX : 472, bt : 1914
+[2024-05-16 16:07:27,317][INFO ] Detect object EX 2  = 12, forklift, 572, 364, 112, 288, mX : 628, bt : 652
+[2024-05-16 16:07:27,317][INFO ] Detect object VALID = 13, forklift, 428, 998, 266, 564, mX : 561, bt : 1562
+[2024-05-16 16:07:27,317][DEBUG] 이동 Down F : T [26] 972 -> 998, B [72] 1490 -> 1562
+[2024-05-16 16:07:27,317][DEBUG] 전처리 13:지게차이동
+[2024-05-16 16:07:27,318][INFO ] Detect object VALID = 14, forklift, 338, 1062, 230, 436, mX : 453, bt : 1498
+[2024-05-16 16:07:27,318][DEBUG] 이동 Down F : T [18] 1044 -> 1062, B [64] 1434 -> 1498
+[2024-05-16 16:07:27,318][DEBUG] 전처리 14:지게차이동
+[2024-05-16 16:07:27,318][DEBUG] 13:지게차이동,14:지게차이동
+[2024-05-16 16:07:27,330][INFO ] ### 이벤트 발생 [12700] [ 2 ] ForkLift and Other Object
+[2024-05-16 16:07:28,832][INFO ] 경광등 개시 : sidp/dev/crd/100
+[2024-05-16 16:07:39,633][INFO ] 경광등 종료 : sidp/dev/crd/100
